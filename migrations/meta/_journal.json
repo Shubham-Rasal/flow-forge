@@ -8,6 +8,41 @@
       "when": 1702716985327,
       "tag": "0000_purple_bloodstorm",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1702717508033,
+      "tag": "0001_confused_shiver_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1702718630709,
+      "tag": "0002_abnormal_blade",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1702720142544,
+      "tag": "0003_natural_kingpin",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1702720329820,
+      "tag": "0004_mysterious_sister_grimm",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1702720946952,
+      "tag": "0005_aberrant_chat",
+      "breakpoints": true
     }
   ]
 }
