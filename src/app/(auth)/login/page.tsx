@@ -39,9 +39,9 @@ const LoginPage = () => {
     const { error } = await LoginAction(values);
 
     if (error) {
-        setSubmitError(error);
+        setSubmitError(error.message);
     } else {
-      router.push("/");
+      router.push("/dashboard");
     }
   }
   return (

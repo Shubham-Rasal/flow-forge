@@ -21,12 +21,15 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
+//   http://localhost:3000/dashboard#error=unauthorized_client&error_code=401&error_description=Email+link+is+invalid+or+has+expired
+
   //check for invalid of expired code
   //Email+link+is+invalid+or+has+expired
+  console.log(req.nextUrl.searchParams)
   const emailLinkError = 'Email link is invalid or has expired'
   if(
     req.nextUrl.searchParams.get('error_description') === emailLinkError &&
-    req.nextUrl.pathname != '/signup'
+    req.nextUrl.pathname !== '/signup'
   ) {
 
     return NextResponse.redirect(new URL(`/signup?error=${emailLinkError}`, req.url));

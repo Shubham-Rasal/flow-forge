@@ -24,6 +24,7 @@ const LoginPage = () => {
   const router = useRouter();
 
   const [submitError, setSubmitError] = useState<string>("");
+  const [confirm, setConfirm] = useState(false);
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -39,9 +40,9 @@ const LoginPage = () => {
     const { error } = await SignUpAction(values);
 
     if (error) {
-      setSubmitError(error);
+      setSubmitError(error.toString());
     } else {
-      router.push("/");
+      setConfirm(true);
     }
   }
   return (
@@ -88,10 +89,17 @@ const LoginPage = () => {
               </FormItem>
             )}
           />
+          {submitError && <FormMessage>{submitError}</FormMessage>}
 
           <Link href="/">Back to home</Link>
 
-          <Button type="submit">Submit</Button>
+          {confirm ? (
+            <div>
+              <p>Check your email for a confirmation link.</p>
+            </div>
+          ) : (
+            <Button type="submit">Submit</Button>
+          )}
         </form>
       </Form>
     </section>
