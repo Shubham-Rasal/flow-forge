@@ -8,7 +8,10 @@ dotenv.config({
   path: ".env",
 });
 
-const { NEXT_PUBLIC_SUPABASE_PROJECT_URL, NEXT_PUBLIC_SUPABASE_PROJECT_ANON_KEY } = process.env;
+const {
+  NEXT_PUBLIC_SUPABASE_PROJECT_URL,
+  NEXT_PUBLIC_SUPABASE_PROJECT_ANON_KEY,
+} = process.env;
 const supabaseUrl = NEXT_PUBLIC_SUPABASE_PROJECT_URL;
 const supabaseKey = NEXT_PUBLIC_SUPABASE_PROJECT_ANON_KEY;
 
@@ -16,21 +19,19 @@ export async function LoginAction({
   email,
   password,
 }: z.infer<typeof loginSchema>) {
-  const authClient = createRouteHandlerClient({ cookies } ,{
-    supabaseKey,
-    supabaseUrl,
-  });
+  const authClient = createRouteHandlerClient(
+    { cookies },
+    {
+      supabaseKey,
+      supabaseUrl,
+    }
+  );
   const signInResponse = await authClient.auth.signInWithPassword({
     email,
     password,
   });
 
-    if (signInResponse.error) {
-        throw new Error(signInResponse.error.message);
-    }
-
-    return signInResponse;
-
+  return signInResponse;
 }
 
 //signup
@@ -39,19 +40,40 @@ export async function SignUpAction({
   email,
   password,
 }: z.infer<typeof loginSchema>) {
-  const authClient = createRouteHandlerClient({ cookies } ,{
-    supabaseKey,
-    supabaseUrl,
-  });
+  const authClient = createRouteHandlerClient(
+    { cookies },
+    {
+      supabaseKey,
+      supabaseUrl,
+    }
+  );
+
+  //check if user exists
+  const user = await authClient.from("users").select("*").eq("email", email);
+  if (user.data?.length) {
+    return { error: "user already exists" };
+  }
+
   const signUpResponse = await authClient.auth.signUp({
     email,
-    password
+    password,
+    options: {
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/callback`,
+    },
   });
 
-    if (signUpResponse.error) {
-        throw new Error(signUpResponse.error.message);
+  return signUpResponse;
+}
+
+//logout
+export async function LogoutAction() {
+  const authClient = createRouteHandlerClient(
+    { cookies },
+    {
+      supabaseKey,
+      supabaseUrl,
     }
-
-    return signUpResponse;
-
+  );
+  const response = await authClient.auth.signOut();
+  return response;
 }
