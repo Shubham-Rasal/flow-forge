@@ -4,7 +4,6 @@ import { useToast } from "./ui/use-toast";
 import { AuthUser } from "@supabase/supabase-js";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { createWorkspaceSchema } from "@/lib/types";
@@ -21,28 +20,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { createWorkspace } from "@/lib/supabase/queries";
-import { generateRandomId } from "@/lib/utils";
+import { v4 } from "uuid";
 
 type CreateWorkspaceProps = {
   subscriptionstatus: Subscription | null;
   user: AuthUser;
+  createWorkspace: (workspace: Workspace) => Promise<any>;
 };
 
 const CreateWorkspace = ({
   subscriptionstatus,
   user,
+  createWorkspace,
 }: CreateWorkspaceProps) => {
   const { toast } = useToast();
-
-  //   console.log(subscriptionstatus);
 
   const router = useRouter();
   const supabase = createClientComponentClient({
     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_PROJECT_URL,
     supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ANON_KEY,
   });
-  const [submitError, setSubmitError] = useState<string>("");
 
   const form = useForm<z.infer<typeof createWorkspaceSchema>>({
     resolver: zodResolver(createWorkspaceSchema),
@@ -56,32 +53,32 @@ const CreateWorkspace = ({
     //generate workspace id of 6 characters
     const file = values.logo?.[0];
     let filePath = null;
-    const workspaceUUID = generateRandomId(6);
-    console.log(file);
+    const workspaceUUID = v4();
+    console.log(workspaceUUID, values);
 
-    if (file) {
-      try {
-        const { data, error } = await supabase.storage
-          .from("workspace-logos")
-          .upload(`workspaceLogo.${workspaceUUID}`, file, {
-            cacheControl: "3600",
-            upsert: true,
-          });
-        if (error) throw new Error("");
-        filePath = data.path;
-      } catch (error) {
-        console.log("Error", error);
-        toast({
-          variant: "destructive",
-          title: "Error! Could not upload your workspace logo",
-        });
-      }
-    }
+    // if (file) {
+    //   try {
+    //     const { data, error } = await supabase.storage
+    //       .from("logos")
+    //       .upload(`logo.${workspaceUUID}`, file, {
+    //         cacheControl: "3600",
+    //         upsert: true,
+    //       });
+    //     if (error) throw new Error("");
+    //     filePath = data.path;
+    //   } catch (error) {
+    //     console.log("Error", error);
+    //     toast({
+    //       variant: "destructive",
+    //       title: "Error! Could not upload your workspace logo",
+    //     });
+    //   }
+    // }
     try {
       const newWorkspace: Workspace = {
         data: null,
         createdAt: new Date().toISOString(),
-        iconId: "testIcon",
+        iconId: v4(),
         id: workspaceUUID,
         inTrash: "",
         title: values.name,
@@ -91,7 +88,7 @@ const CreateWorkspace = ({
       };
       const { data, error: createError } = await createWorkspace(newWorkspace);
       if (createError) {
-        throw new Error();
+        throw new Error(createError);
       }
 
       toast({
@@ -105,8 +102,7 @@ const CreateWorkspace = ({
       toast({
         variant: "destructive",
         title: "Could not create your workspace",
-        description:
-          "Oops! Something went wrong, and we couldn't create your workspace. Try again or come back later.",
+        description: `We could not create your workspace. Please try again later.`,
       });
     } finally {
       form.reset();
