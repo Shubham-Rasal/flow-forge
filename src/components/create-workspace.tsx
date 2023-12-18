@@ -21,18 +21,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { v4 } from "uuid";
+import { useSupabaseUser } from "./user-provider";
 
 type CreateWorkspaceProps = {
-  subscriptionstatus: Subscription | null;
-  user: AuthUser;
   createWorkspace: (workspace: Workspace) => Promise<any>;
 };
 
-const CreateWorkspace = ({
-  subscriptionstatus,
-  user,
-  createWorkspace,
-}: CreateWorkspaceProps) => {
+const CreateWorkspace = ({ createWorkspace }: CreateWorkspaceProps) => {
   const { toast } = useToast();
 
   const router = useRouter();
@@ -40,6 +35,8 @@ const CreateWorkspace = ({
     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_PROJECT_URL,
     supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ANON_KEY,
   });
+
+  const { user, subscription } = useSupabaseUser();
 
   const form = useForm<z.infer<typeof createWorkspaceSchema>>({
     resolver: zodResolver(createWorkspaceSchema),
@@ -82,7 +79,7 @@ const CreateWorkspace = ({
         id: workspaceUUID,
         inTrash: "",
         title: values.name,
-        workspaceOwner: user.id,
+        workspaceOwner: user?.id || "",
         logo: filePath || null,
         bannerUrl: "",
       };
@@ -135,7 +132,7 @@ const CreateWorkspace = ({
                 <FormControl>
                   <Input
                     disabled={
-                      subscriptionstatus?.status === "active" ? false : true
+                      subscription?.status === "active" ? false : true
                     }
                     type="file"
                     accept="image/*"

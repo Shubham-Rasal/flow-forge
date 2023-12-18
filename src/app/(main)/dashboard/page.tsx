@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import { getUserSubscriptionStatus } from '@/lib/supabase/queries';
 import CreateWorkspace from '@/components/create-workspace';
 import { createWorkspace } from '@/lib/server-actions/workspace-actions';
+import { Workspace } from '@/lib/supabase/database.types';
 
 const DashboardPage = async () => {
   const supabase = createServerComponentClient({ cookies }, {
@@ -21,7 +22,7 @@ const DashboardPage = async () => {
   if (!user) return;
 
   const workspace = await db.query.workspaces.findFirst({
-    where: (workspace, { eq }) => eq(workspace.workspaceOwner, user.id),
+    where: ({workspaceOwner} : any, { eq } : any) => eq(workspaceOwner, user.id),
   });
 
   const { data: subscription, error: subscriptionError } =
@@ -29,7 +30,7 @@ const DashboardPage = async () => {
 
   if (subscriptionError) return;
 
-  
+
 
 
   if (!workspace)
@@ -40,8 +41,6 @@ const DashboardPage = async () => {
             You don't have any workspaces yet. Create one to get started.
           </p>
         <CreateWorkspace
-          user={user}
-          subscriptionstatus={subscription}
           createWorkspace={createWorkspace}
         />
       </div>

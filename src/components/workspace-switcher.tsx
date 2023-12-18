@@ -39,7 +39,8 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Workspace } from "@/lib/supabase/database.types";
-
+import CreateWorkspace from "./create-workspace";
+import { createWorkspace } from "@/lib/server-actions/workspace-actions";
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger
 >;
@@ -53,6 +54,9 @@ export default function WorkspaceSwitcher({
   workspaces,
 }: WorkspaceSwitcherProps) {
   const [open, setOpen] = React.useState(false);
+  const [workspaceType, setWorkspaceType] = React.useState<
+    "private" | "shared"
+  >("private"); //default to private
   const [showNewWorkspaceDialog, setShowNewWorkspaceDialog] =
     React.useState(false);
 
@@ -63,16 +67,22 @@ export default function WorkspaceSwitcher({
     },
     {
       label: "Other Workspaces",
-      workspaces: [
-        {
-          title: "Acme Inc.",
-          value: "acme-inc",
-        },
-        {
-          title: "Monsters Inc.",
-          value: "monsters",
-        },
-      ],
+      workspaces: workspaces,
+    },
+  ];
+
+  const collaborators = [
+    {
+      name: "John Doe",
+      email: "joh1n@doe.com",
+    },
+    {
+      name: "John Doe",
+      email: "joh12n@doe.com",
+    },
+    {
+      name: "John Doe",
+      email: "joh234n@doe.com",
     },
   ];
 
@@ -81,6 +91,12 @@ export default function WorkspaceSwitcher({
   );
 
   //   console.log(workspaces);
+
+  const handleCreateWorkspace = async () => {
+
+    console.log
+   
+  }
 
   return (
     <Dialog
@@ -98,7 +114,7 @@ export default function WorkspaceSwitcher({
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
-                src={`https://avatar.vercel.sh/${selectedWorkspace.value}.png`}
+                src={`https://avatar.vercel.sh/${selectedWorkspace.bannerUrl}.png`}
                 alt={selectedWorkspace.title}
               />
               <AvatarFallback>SC</AvatarFallback>
@@ -116,7 +132,7 @@ export default function WorkspaceSwitcher({
                 <CommandGroup key={group.label} heading={group.label}>
                   {group.workspaces.map((workspace) => (
                     <CommandItem
-                      key={workspace.value}
+                      key={workspace.id}
                       onSelect={() => {
                         setSelectedWorkspace(workspace);
                         setOpen(false);
@@ -125,7 +141,7 @@ export default function WorkspaceSwitcher({
                     >
                       <Avatar className="mr-2 h-5 w-5">
                         <AvatarImage
-                          src={`https://avatar.vercel.sh/${workspace.value}.png`}
+                          src={`https://avatar.vercel.sh/${workspace.bannerUrl}.png`}
                           alt={workspace.title}
                           className="grayscale"
                         />
@@ -135,7 +151,7 @@ export default function WorkspaceSwitcher({
                       <CheckIcon
                         className={cn(
                           "ml-auto h-4 w-4",
-                          selectedWorkspace.value === workspace.value
+                          selectedWorkspace === workspace
                             ? "opacity-100"
                             : "opacity-0"
                         )}
@@ -166,41 +182,12 @@ export default function WorkspaceSwitcher({
       </Popover>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create team</DialogTitle>
+          <DialogTitle>Create Workspace</DialogTitle>
           <DialogDescription>
-            Add a new team to manage products and customers.
+            Add a new workspace to your account.
           </DialogDescription>
         </DialogHeader>
-        <div>
-          <div className="space-y-4 py-2 pb-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Workspace name</Label>
-              <Input id="name" placeholder="Acme Inc." />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="plan">Subscription plan</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a plan" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="free">
-                    <span className="font-medium">Free</span> -{" "}
-                    <span className="text-muted-foreground">
-                      Trial for two weeks
-                    </span>
-                  </SelectItem>
-                  <SelectItem value="pro">
-                    <span className="font-medium">Pro</span> -{" "}
-                    <span className="text-muted-foreground">
-                      $9/month per user
-                    </span>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
+        <CreateWorkspace createWorkspace={createWorkspace}/>
         <DialogFooter>
           <Button
             variant="outline"
@@ -208,7 +195,9 @@ export default function WorkspaceSwitcher({
           >
             Cancel
           </Button>
-          <Button type="submit">Continue</Button>
+          <Button 
+          onClick={handleCreateWorkspace}
+          type="submit">Create</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
