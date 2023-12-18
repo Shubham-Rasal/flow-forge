@@ -22,3 +22,13 @@ export const getAllWorkspaces = async () => {
     return { data: [], error: error };
   }
 };
+
+//get all collaborators
+export const getAllCollaborators = async () => {
+  try {
+    const data = await db.query.collaborators.findMany();
+    return { data: data, error: null };
+  } catch (error) {
+    return { data: [], error: error };
+  }
+};
