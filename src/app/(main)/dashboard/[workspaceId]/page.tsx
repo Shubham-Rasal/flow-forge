@@ -1,5 +1,5 @@
 import TeamSwitcher from "@/components/workspace-switcher";
-import { getAllWorkspaces } from "@/lib/server-actions/workspace-actions";
+import { createWorkspace, getAllWorkspaces } from "@/lib/server-actions/workspace-actions";
 import { Workspace } from "@/lib/supabase/database.types";
 import React from "react";
 
@@ -26,7 +26,7 @@ const WorkspacePage = async ({
   return (
     <div className="flex flex-row h-screen">
       <div className="sidebar flex flex-col b-2 border border-teal-500">
-        <TeamSwitcher workspaces={workspaces} />
+        <TeamSwitcher workspaces={workspaces} createWorkspace={createWorkspace}  />
       </div>
       <div className="workspace flex-1">WorkspacePage {params.workspaceId}</div>
     </div>

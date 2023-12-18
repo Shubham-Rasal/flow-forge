@@ -1,3 +1,5 @@
+import { WorkspaceProvider } from "@/components/workspace-provider";
+
 export default function HomeLayout({
   children,
 }: {
@@ -5,7 +7,9 @@ export default function HomeLayout({
 }) {
   return (
     <main>
+      <WorkspaceProvider>
       {children}
+      </WorkspaceProvider>
     </main>
   );
 }

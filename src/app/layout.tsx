@@ -29,7 +29,11 @@ export default function RootLayout({
           attribute="class"
           disableTransitionOnChange
         >
-          <SupabaseUserProvider>{children}</SupabaseUserProvider>
+          <SupabaseUserProvider>
+         
+              {children}
+              
+          </SupabaseUserProvider>
         </ThemeProvider>
         <Toaster />
       </body>

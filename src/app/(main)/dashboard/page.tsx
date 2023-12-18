@@ -1,36 +1,17 @@
+'use client';
 import React from 'react';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-
-import { cookies } from 'next/headers';
-import db from '@/lib/supabase/db';
-import { redirect } from 'next/navigation';
-import { getUserSubscriptionStatus } from '@/lib/supabase/queries';
-import CreateWorkspace from '@/components/create-workspace';
+import { useSupabaseUser } from '@/components/user-provider';
+import { useWorkspace } from '@/components/workspace-provider';
 import { createWorkspace } from '@/lib/server-actions/workspace-actions';
-import { Workspace } from '@/lib/supabase/database.types';
+import CreateWorkspace from '@/components/create-workspace';
+import { redirect } from 'next/navigation';
+const DashboardPage = () => {
 
-const DashboardPage = async () => {
-  const supabase = createServerComponentClient({ cookies }, {
-    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_PROJECT_URL,
-    supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ANON_KEY,
-  });
+  const {workspace} = useWorkspace();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const {user} = useSupabaseUser();
 
-  if (!user) return;
-
-  const workspace = await db.query.workspaces.findFirst({
-    where: ({workspaceOwner} : any, { eq } : any) => eq(workspaceOwner, user.id),
-  });
-
-  const { data: subscription, error: subscriptionError } =
-    await getUserSubscriptionStatus(user.id);
-
-  if (subscriptionError) return;
-
-
+  if(!user) return <div>Fetching user...</div>;
 
 
   if (!workspace)

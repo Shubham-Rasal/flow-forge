@@ -4,8 +4,9 @@ import { AuthUser } from "@supabase/supabase-js";
 import { Subscription } from "@/lib/supabase/database.types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { getUserSubscriptionStatus } from "@/lib/supabase/queries";
+
 import { useToast } from "@/components/ui/use-toast";
+import { getUserSubscriptionStatus } from "@/lib/server-actions/workspace-actions";
 
 type SupabaseUserContextType = {
   user: AuthUser | null;
@@ -32,7 +33,10 @@ export const SupabaseUserProvider: React.FC<SupabaseUserProviderProps> = ({
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const { toast } = useToast();
 
-  const supabase = createClientComponentClient();
+  const supabase = createClientComponentClient({
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_PROJECT_URL,
+    supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ANON_KEY,
+  });
 
   //Fetch the user details
   //subscrip
@@ -44,6 +48,7 @@ export const SupabaseUserProvider: React.FC<SupabaseUserProviderProps> = ({
       if (!user) return;
 
       setUser(user);
+      console.log(user);
       const { data, error } = await getUserSubscriptionStatus(user.id);
       if (data) setSubscription(data);
       if (error) {

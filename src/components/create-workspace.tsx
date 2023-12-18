@@ -107,7 +107,7 @@ const CreateWorkspace = ({ createWorkspace }: CreateWorkspaceProps) => {
   }
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen py-2">
+    <section className="flex flex-col items-center justify-center py-2">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -131,9 +131,7 @@ const CreateWorkspace = ({ createWorkspace }: CreateWorkspaceProps) => {
                 <FormLabel>Logo</FormLabel>
                 <FormControl>
                   <Input
-                    disabled={
-                      subscription?.status === "active" ? false : true
-                    }
+                    disabled={subscription?.status === "active" ? false : true}
                     type="file"
                     accept="image/*"
                     {...field}
@@ -144,9 +142,11 @@ const CreateWorkspace = ({ createWorkspace }: CreateWorkspaceProps) => {
             )}
           />
 
-          <Link href="/">Back to home</Link>
+          <div className="flex flex-row items-center justify-between space-y-4">
+            <Link href="/">Back to home</Link>
 
-          <Button type="submit">Submit</Button>
+            <Button type="submit">Submit</Button>
+          </div>
         </form>
       </Form>
     </section>

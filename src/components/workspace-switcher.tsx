@@ -40,18 +40,20 @@ import {
 } from "./ui/select";
 import { Workspace } from "@/lib/supabase/database.types";
 import CreateWorkspace from "./create-workspace";
-import { createWorkspace } from "@/lib/server-actions/workspace-actions";
+import { useWorkspace } from "./workspace-provider";
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger
 >;
 
 interface WorkspaceSwitcherProps extends PopoverTriggerProps {
   workspaces: Workspace[];
+  createWorkspace: (workspace: Workspace) => Promise<any>;
 }
 
 export default function WorkspaceSwitcher({
   className,
   workspaces,
+  createWorkspace,
 }: WorkspaceSwitcherProps) {
   const [open, setOpen] = React.useState(false);
   const [workspaceType, setWorkspaceType] = React.useState<
@@ -67,7 +69,7 @@ export default function WorkspaceSwitcher({
     },
     {
       label: "Other Workspaces",
-      workspaces: workspaces,
+      workspaces: [],
     },
   ];
 
@@ -86,17 +88,20 @@ export default function WorkspaceSwitcher({
     },
   ];
 
-  const [selectedWorkspace, setSelectedWorkspace] = React.useState<Workspace>(
-    groups[0]?.workspaces[0]
-  );
+  const { setWorkspace: setSelectedWorkspace, workspace: selectedWorkspace } =
+    useWorkspace();
+  if (!selectedWorkspace)
+    return (
+      <div className="flex flex-col items-center">
+        <h1 className="text-2xl font-bold">Welcome</h1>
+        <p className="text-lg text-center">
+          You don't have any workspaces yet. Create one to get started.
+        </p>
+        <CreateWorkspace createWorkspace={createWorkspace} />
+      </div>
+    );
 
   //   console.log(workspaces);
-
-  const handleCreateWorkspace = async () => {
-
-    console.log
-   
-  }
 
   return (
     <Dialog
@@ -187,7 +192,10 @@ export default function WorkspaceSwitcher({
             Add a new workspace to your account.
           </DialogDescription>
         </DialogHeader>
-        <CreateWorkspace createWorkspace={createWorkspace}/>
+        <div className="flex flex-col space-y-4">
+          <CreateWorkspace createWorkspace={createWorkspace} />
+        </div>
+
         <DialogFooter>
           <Button
             variant="outline"
@@ -195,9 +203,7 @@ export default function WorkspaceSwitcher({
           >
             Cancel
           </Button>
-          <Button 
-          onClick={handleCreateWorkspace}
-          type="submit">Create</Button>
+          <Button type="submit">Create</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
