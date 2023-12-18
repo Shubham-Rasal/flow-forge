@@ -26,6 +26,6 @@ export const registerSchema = z
 
 
 export const createWorkspaceSchema = z.object({
-  name: z.string().min(3).max(8),
+  name: z.string().min(3).max(80),
   logo: z.any(),
 });
