@@ -12,17 +12,7 @@ export const getUserSubscriptionStatus = async (userId: string) => {
 
     return { data: null, error: null };
   } catch (error) {
-    return { data: null, error: error};
+    return { data: null, error: error };
   }
 };
 
-
-export const createWorkspace = async (workspace: Workspace) => {
-    try {
-      const response = await db.insert(workspaces).values(workspace);
-      return { data: null, error: null };
-    } catch (error) {
-      console.log(error);
-      return { data: null, error: 'Error' };
-    }
-  };
