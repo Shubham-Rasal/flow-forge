@@ -1,5 +1,9 @@
+import NovelEditor from "@/components/editor";
 import TeamSwitcher from "@/components/workspace-switcher";
-import { createWorkspace, getAllWorkspaces } from "@/lib/server-actions/workspace-actions";
+import {
+  createWorkspace,
+  getAllWorkspaces,
+} from "@/lib/server-actions/workspace-actions";
 import { Workspace } from "@/lib/supabase/database.types";
 import React from "react";
 
@@ -16,19 +20,22 @@ const WorkspacePage = async ({
       </div>
     );
 
-//   console.log(data);
+  //   console.log(data);
 
   // Check the type of workspaces and update it if necessary
   // Example: const workspaces: InferSelectModel<...> = ...
   const workspaces: Workspace[] = data;
-//   console.log(workspaces);
-
   return (
-    <div className="flex flex-row h-screen">
+    <div className="flex flex-row max-h-screen">
       <div className="sidebar flex flex-col b-2 border border-teal-500">
-        <TeamSwitcher workspaces={workspaces} createWorkspace={createWorkspace}  />
+        <TeamSwitcher
+          workspaces={workspaces}
+          createWorkspace={createWorkspace}
+        />
       </div>
-      <div className="workspace flex-1">WorkspacePage {params.workspaceId}</div>
+      <div className="workspace flex-1">
+       <NovelEditor />
+      </div>
     </div>
   );
 };

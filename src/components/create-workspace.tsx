@@ -53,24 +53,24 @@ const CreateWorkspace = ({ createWorkspace }: CreateWorkspaceProps) => {
     const workspaceUUID = v4();
     console.log(workspaceUUID, values);
 
-    // if (file) {
-    //   try {
-    //     const { data, error } = await supabase.storage
-    //       .from("logos")
-    //       .upload(`logo.${workspaceUUID}`, file, {
-    //         cacheControl: "3600",
-    //         upsert: true,
-    //       });
-    //     if (error) throw new Error("");
-    //     filePath = data.path;
-    //   } catch (error) {
-    //     console.log("Error", error);
-    //     toast({
-    //       variant: "destructive",
-    //       title: "Error! Could not upload your workspace logo",
-    //     });
-    //   }
-    // }
+    if (file) {
+      try {
+        const { data, error } = await supabase.storage
+          .from("logos")
+          .upload(`logo.${workspaceUUID}`, file, {
+            cacheControl: "3600",
+            upsert: true,
+          });
+        if (error) throw new Error("");
+        filePath = data.path;
+      } catch (error) {
+        console.log("Error", error);
+        toast({
+          variant: "destructive",
+          title: "Error! Could not upload your workspace logo",
+        });
+      }
+    }
     try {
       const newWorkspace: Workspace = {
         data: null,

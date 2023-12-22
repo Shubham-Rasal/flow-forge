@@ -23,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Toaster />
         <ThemeProvider
           defaultTheme="system"
           enableSystem
@@ -30,12 +31,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SupabaseUserProvider>
-         
               {children}
-              
           </SupabaseUserProvider>
         </ThemeProvider>
-        <Toaster />
       </body>
     </html>
   );

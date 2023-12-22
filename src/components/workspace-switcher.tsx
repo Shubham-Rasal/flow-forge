@@ -41,6 +41,7 @@ import {
 import { Workspace } from "@/lib/supabase/database.types";
 import CreateWorkspace from "./create-workspace";
 import { useWorkspace } from "./workspace-provider";
+import { useRouter } from "next/navigation";
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger
 >;
@@ -59,6 +60,9 @@ export default function WorkspaceSwitcher({
   const [workspaceType, setWorkspaceType] = React.useState<
     "private" | "shared"
   >("private"); //default to private
+
+  const router = useRouter()
+
   const [showNewWorkspaceDialog, setShowNewWorkspaceDialog] =
     React.useState(false);
 
@@ -140,7 +144,9 @@ export default function WorkspaceSwitcher({
                       key={workspace.id}
                       onSelect={() => {
                         setSelectedWorkspace(workspace);
+                        router.replace(`/dashboard/${workspace.id}`);
                         setOpen(false);
+                        console.log(workspace);
                       }}
                       className="text-sm"
                     >
@@ -156,7 +162,7 @@ export default function WorkspaceSwitcher({
                       <CheckIcon
                         className={cn(
                           "ml-auto h-4 w-4",
-                          selectedWorkspace === workspace
+                          selectedWorkspace.id === workspace.id
                             ? "opacity-100"
                             : "opacity-0"
                         )}

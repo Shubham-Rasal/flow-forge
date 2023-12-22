@@ -1,7 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+/* * {
+  border: 0.5px solid red;
+}
+  */
 @layer base {
   :root {
     --background: 0 0% 100%;
