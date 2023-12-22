@@ -107,3 +107,18 @@ export const users = pgTable("users", {
 	email: text("email"),
 	updatedAt: timestamp("updated_at", { withTimezone: true, mode: 'string' }),
 });
+
+export const todos = pgTable("todos", {
+	id: uuid("id").defaultRandom().primaryKey().notNull(),
+	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+	title: text("title"),
+	isComplete: boolean("is_complete").default(false),
+	userId: uuid("user_id").default(sql`auth.uid()`),
+});
+
+export const collaborators = pgTable("collaborators", {
+	id: uuid("id").defaultRandom().primaryKey().notNull(),
+	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }),
+	workspaceId: uuid("workspace_id").references(() => workspaces.id, { onDelete: "cascade" } ),
+	userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" } ),
+});

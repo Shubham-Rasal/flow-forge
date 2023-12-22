@@ -23,3 +23,9 @@ export const registerSchema = z
     message: "Passwords must match",
     path: ["passwordConfirm"],
   });
+
+
+export const createWorkspaceSchema = z.object({
+  name: z.string().min(3).max(80),
+  logo: z.any(),
+});

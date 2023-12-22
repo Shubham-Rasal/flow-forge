@@ -1,27 +1,33 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { LogoutAction } from "@/lib/server-actions/auth-actions";
-import { useRouter } from "next/navigation";
 import React from "react";
-
-const DashBoard = () => {
+import { useSupabaseUser } from "@/components/user-provider";
+import { useWorkspace } from "@/components/workspace-provider";
+import { createWorkspace } from "@/lib/server-actions/workspace-actions";
+import CreateWorkspace from "@/components/create-workspace";
+import { useRouter } from "next/navigation";
+const DashboardPage = () => {
   const router = useRouter();
+  const { workspace } = useWorkspace();
+  const { user } = useSupabaseUser();
 
-  const handleLogout = async () => {
-    const { error } = await LogoutAction();
-    if (error) {
-      console.log(error);
-    } else {
-      router.push("/login");
-    }
-  };
+  if (!user) return <div>Fetching user...</div>;
 
-  return (
-    <div>
-      DashBoard
-      <Button onClick={handleLogout}>Logout</Button>
-    </div>
-  );
+  if (!workspace)
+    return (
+      <div className="flex flex-col items-center">
+        <h1 className="text-2xl font-bold">Welcome {user.email}</h1>
+        <p className="text-lg text-center">
+          You don &apos; t have any workspaces yet. Create one to get started.
+        </p>
+        <CreateWorkspace createWorkspace={createWorkspace} />
+      </div>
+    );
+  else {
+    router.push(`/dashboard/${workspace.id}`);
+    return <div>Redirecting...</div>;
+  }
+
+ 
 };
 
-export default DashBoard;
+export default DashboardPage;

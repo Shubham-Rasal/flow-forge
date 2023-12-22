@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./global.css";
 import db from "@/lib/supabase/db";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
+import { SupabaseUserProvider } from "@/components/user-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,13 +23,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Toaster />
         <ThemeProvider
           defaultTheme="system"
           enableSystem
           attribute="class"
           disableTransitionOnChange
         >
-          {children}
+          <SupabaseUserProvider>
+              {children}
+          </SupabaseUserProvider>
         </ThemeProvider>
       </body>
     </html>

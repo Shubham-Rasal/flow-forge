@@ -43,6 +43,20 @@
       "when": 1702720946952,
       "tag": "0005_aberrant_chat",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1702906236144,
+      "tag": "0006_curved_fantastic_four",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1702906915383,
+      "tag": "0007_modern_switch",
+      "breakpoints": true
     }
   ]
 }
