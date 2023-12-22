@@ -17,7 +17,7 @@ const DashboardPage = () => {
       <div className="flex flex-col items-center">
         <h1 className="text-2xl font-bold">Welcome {user.email}</h1>
         <p className="text-lg text-center">
-          You don't have any workspaces yet. Create one to get started.
+          You don &apos; t have any workspaces yet. Create one to get started.
         </p>
         <CreateWorkspace createWorkspace={createWorkspace} />
       </div>

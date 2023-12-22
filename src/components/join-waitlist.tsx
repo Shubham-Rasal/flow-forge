@@ -28,7 +28,7 @@ export function WaitlistForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: "planner@gmail.com",
+      email: "",
     },
   });
 
@@ -55,7 +55,7 @@ export function WaitlistForm() {
                 <Input placeholder="blueq@planner.com" {...field} />
               </FormControl>
               <FormDescription>
-                We'll never share your email with anyone else.
+                We&apos;ll never share your email with anyone else.
               </FormDescription>
               <FormMessage />
             </FormItem>

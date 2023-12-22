@@ -99,7 +99,7 @@ export default function WorkspaceSwitcher({
       <div className="flex flex-col items-center">
         <h1 className="text-2xl font-bold">Welcome</h1>
         <p className="text-lg text-center">
-          You don't have any workspaces yet. Create one to get started.
+          You don&apos;t have any workspaces yet. Create one to get started.
         </p>
         <CreateWorkspace createWorkspace={createWorkspace} />
       </div>
@@ -195,7 +195,7 @@ export default function WorkspaceSwitcher({
         <DialogHeader>
           <DialogTitle>Create Workspace</DialogTitle>
           <DialogDescription>
-            Add a new workspace to your account.
+            Add a new workspace to your account &apos;
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col space-y-4">
