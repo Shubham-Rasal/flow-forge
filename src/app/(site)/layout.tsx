@@ -21,7 +21,7 @@ export default function HomeLayout({
           </div>
         </nav>
       </header>
-      {children}
+      <div className="mt-16">{children}</div>
     </main>
   );
 }
