@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import ReactFlow, { Controls, useNodesState, useEdgesState, addEdge, Node, Edge, Connection } from 'reactflow';
+import ReactFlow, { Controls, useNodesState, useEdgesState, addEdge, Node, Edge, Connection, Background } from 'reactflow';
 import { FiFile } from 'react-icons/fi';
 
 import 'reactflow/dist/base.css';
@@ -30,19 +30,19 @@ const initialNodes: Node<TurboNodeData>[] = [
   {
     id: '4',
     position: { x: 250, y: 250 },
-    data: { icon: <FunctionIcon />, title: 'bundle', subline: 'sdkContents' },
+    data: { icon: <FunctionIcon />, title: 'september', subline: 'sdkContents' },
     type: 'turbo',
   },
   {
     id: '5',
     position: { x: 500, y: 125 },
-    data: { icon: <FunctionIcon />, title: 'concat', subline: 'api, sdk' },
+    data: { icon: <FunctionIcon />, title: 'october', subline: 'api, sdk' },
     type: 'turbo',
   },
   {
     id: '6',
     position: { x: 750, y: 125 },
-    data: { icon: <FiFile />, title: 'fullBundle' },
+    data: { icon: <FiFile />, title: 'Year 2023' },
     type: 'turbo',
   },
 ];
@@ -129,6 +129,8 @@ const TurboBuilder = () => {
           </marker>
         </defs>
       </svg>
+
+      <Background/>
     </ReactFlow>
   );
 };

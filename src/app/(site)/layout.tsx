@@ -10,7 +10,7 @@ export default function HomeLayout({
 }) {
   return (
     <main>
-      <Background />
+
       <header className="fixed top-0 z-50 h-[60px] w-full items-center border-b">
         <nav className="mx-auto flex h-full  items-center justify-between px-5 sm:pl-4 sm:pr-3 md:max-w-7xl lg:px-4">
           <Navbar />
@@ -21,7 +21,7 @@ export default function HomeLayout({
           </div>
         </nav>
       </header>
-      <div className="mt-16">{children}</div>
+      <div className="pt-16">{children}</div>
     </main>
   );
 }
