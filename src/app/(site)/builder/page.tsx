@@ -1,6 +1,4 @@
 import { Builder } from '@/components/builder'
-import { DrawerDemo } from '@/components/drawer-demo'
-import React from 'react'
 
 const BuilderPage = () => {
   return (
