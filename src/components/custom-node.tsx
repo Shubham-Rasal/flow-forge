@@ -13,7 +13,7 @@ type CustomNodeProps = {
 function CustomNode({ data }: CustomNodeProps) {
   return (
     <div className="px-4 py-2 shadow-md rounded-md bg-white border-2 border-stone-400">
-      <DrawerDemo />
+      {/* <DrawerDemo /> */}
 
       <Handle
         type="target"

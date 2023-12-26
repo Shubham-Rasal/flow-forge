@@ -40,7 +40,7 @@ export function DrawerDemo(data: TurboNodeData) {
           <DialogHeader>
             <DialogTitle>Edit goal</DialogTitle>
             <DialogDescription>
-              Make changes to your goal here. Click save when you're done.
+              Make changes to your goal here. Click save when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
           <CreateGoal {...data}/>
@@ -58,7 +58,8 @@ export function DrawerDemo(data: TurboNodeData) {
         <DrawerHeader className="text-left">
           <DrawerTitle>Edit profile</DrawerTitle>
           <DrawerDescription>
-            Make changes to your profile here. Click save when you're done.
+          Make changes to your goal here. Click save when you&apos;re done.
+
           </DrawerDescription>
         </DrawerHeader>
         {/* <ProfileForm className="px-4" /> */}

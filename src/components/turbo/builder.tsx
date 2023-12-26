@@ -37,7 +37,7 @@ const initialNodes: Node<TurboNodeData>[] = [
     data: {
       attachable: true,
       description: "what is the main goal?",
-      goal: "complete the project this is a test for long",
+      goal: "complete the project this is a test for long text can it accomodate it",
       time: "12:00",
       date: new Date(),
       type: "daily",
