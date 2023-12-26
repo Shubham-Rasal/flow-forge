@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 
 const HomePage = () => {
 
-  console.log("Home Page: ",process.env.SERVICE_ROLE_KEY)
 
   return (
     <section className="flex flex-col h-fit  bg-gradient-radial from-0% via-50% to-100% bg-no-repeat from-indigo-500/20 to-transparent">

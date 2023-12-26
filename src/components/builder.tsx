@@ -56,7 +56,6 @@ const initEdges = [
 
 export const Builder = () => {
 
-  console.log("Builder Component: ",process.env.SERVICE_ROLE_KEY)
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initEdges);
