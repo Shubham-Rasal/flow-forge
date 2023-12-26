@@ -36,7 +36,7 @@ export function WaitlistForm() {
     toast({
       title: "You submitted the following values:",
       description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+        <pre className="mt-2 w-[340px] rounded-md bg-neutral-950 p-4">
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
@@ -55,13 +55,13 @@ export function WaitlistForm() {
                 <Input placeholder="blueq@planner.com" {...field} />
               </FormControl>
               <FormDescription>
-                We&apos;ll never share your email with anyone else.
+                Join the waitlist to get early access.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button variant={"secondary"} type="submit">
+        <Button variant={"default"} type="submit">
           Submit
         </Button>
       </form>

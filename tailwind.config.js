@@ -69,29 +69,24 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        blob: "blob 10s infinite",
       },
-    },
-    colors: {
-      //   --sky-blue: #8ecae6ff;
-      // --blue-green: #219ebcff;
-      // --prussian-blue: #023047ff;
-      // --selective-yellow: #ffb703ff;
-      // --ut-orange: #fb8500ff;
-      transparent: "transparent",
-      current: "currentColor",
-      white: "#ffffff",
-      purple: "#3f3cbb",
-      midnight: "#121063",
-      metal: "#565584",
-      tahiti: "#3ab7bf",
-      silver: "#ecebff",
-      "bubble-gum": "#ff77e9",
-      bermuda: "#78dcca",
-      sky: "#8ecae6",
-      "blue-green": "#219ebc",
-      "prussian-blue": "#023047",
-      "selective-yellow": "#ffb703",
-      "ut-orange": "#fb8500",
+      keyframes: {
+        blob: {
+          "0%, 100%": {
+            transform: "translate(0, 0) scale(1)",
+          },
+          "25%": {
+            transform: "translate(20px, -50px) scale(1.1)",
+          },
+          "50%": {
+            transform: "translate(0, 20px) scale(1)",
+          },
+          "75%": {
+            transform: "translate(-20px, -15px) scale(0.9)",
+          },
+        },
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

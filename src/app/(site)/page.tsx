@@ -4,24 +4,27 @@ import NewRelease from "@/components/new-realease-button";
 import { Button } from "@/components/ui/button";
 
 const HomePage = () => {
+
+  console.log("Home Page: ",process.env.SERVICE_ROLE_KEY)
+
   return (
-    <section className="flex flex-col bg-gradient-radial from-0% via-50% to-100% bg-no-repeat from-indigo-500/20 to-transparent">
+    <section className="flex flex-col h-fit  bg-gradient-radial from-0% via-50% to-100% bg-no-repeat from-indigo-500/20 to-transparent">
       <div className="mx-auto flex w-full max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-28 lg:px-2 items-center">
         <div className="flex max-w-2xl  px-1 lg:px-0">
           <div className="flex flex-col mt-4 items-center">
             <h1 className="dark:text-slate-200 text-slate-800 font-title font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight sm:leading-[3rem] lg:leading-[4rem] pb-6 text-center">
               The only
-              <div className="bg-gradient-to-r to-prussian-blue from-sky bg-clip-text text-transparent">
+              <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 Life Planner
               </div>
               you need to be
-              <div className="bg-gradient-to-r from-selective-yellow to-ut-orange  bg-clip-text text-transparent">
+              <div className="bg-gradient-to-r from-slate-600 to-stone-600  bg-clip-text text-transparent">
                 Accountable
               </div>
             </h1>
           </div>
         </div>
-        <div className="relative flex justify-center items-center">
+        <div className="relative  flex justify-center items-center">
           <WaitlistForm />
         </div>
       </div>
@@ -50,6 +53,7 @@ const HomePage = () => {
           </span>
         </a>
       </div> */}
+
     </section>
   );
 };
