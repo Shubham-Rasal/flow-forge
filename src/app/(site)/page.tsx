@@ -11,11 +11,11 @@ const HomePage = () => {
           <div className="flex flex-col mt-4 items-center">
             <h1 className="dark:text-slate-200 text-slate-800 font-title font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight sm:leading-[3rem] lg:leading-[4rem] pb-6 text-center">
               The only
-              <div className="bg-gradient-to-r from-yellow-400 to-teal-600 bg-clip-text text-transparent">
+              <div className="bg-gradient-to-r to-prussian-blue from-sky bg-clip-text text-transparent">
                 Life Planner
               </div>
               you need to be
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <div className="bg-gradient-to-r from-selective-yellow to-ut-orange  bg-clip-text text-transparent">
                 Accountable
               </div>
             </h1>

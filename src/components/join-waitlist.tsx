@@ -61,7 +61,7 @@ export function WaitlistForm() {
             </FormItem>
           )}
         />
-        <Button variant={"outline"} type="submit">
+        <Button variant={"secondary"} type="submit">
           Submit
         </Button>
       </form>
