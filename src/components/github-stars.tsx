@@ -9,7 +9,7 @@ function formatNumber(number: number) {
   } else if (absNumber >= 1e3) {
     return (number / 1e3).toFixed(1) + "k";
   } else {
-    return number.toString();
+    return 1;
   }
 }
 
