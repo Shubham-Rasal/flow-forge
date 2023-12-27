@@ -54,6 +54,13 @@ export function Navbar() {
             </Button>
           </Link>
         </NavigationMenuItem>
+        <NavigationMenuItem className="">
+          <Link href="/login" legacyBehavior passHref>
+            <Button variant={"link"}>
+              Login
+            </Button>
+          </Link>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );
