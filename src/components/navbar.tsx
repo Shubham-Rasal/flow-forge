@@ -14,53 +14,39 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
-
-const components: { title: string; href: string; description: string }[] = [
-  // {
-  //   title: "Login",
-  //   href: "/login",
-  //   description:
-  //     "Login to your account.",
-  // },
-  // {
-  //   title: "Signup",
-  //   href: "/signup",
-  //   description:
-  //     "Create an account.",
-  // },
-  // {
-  //   title: "Task Editor",
-  //   href: "/editor",
-  //   description:
-  //     "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  // },
-];
+import { useSupabaseUser } from "./user-provider";
 
 export function Navbar() {
+  const { user } = useSupabaseUser();
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
-            <Button variant={"link"}>
-              Home
-            </Button>
+            <Button variant={"link"}>Home</Button>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem className="">
           <Link href="/builder" legacyBehavior passHref>
-            <Button variant={"link"}>
-              Plan Builder
-            </Button>
+            <Button variant={"link"}>Plan Builder</Button>
           </Link>
         </NavigationMenuItem>
-        <NavigationMenuItem className="">
-          <Link href="/login" legacyBehavior passHref>
-            <Button variant={"link"}>
-              Login
-            </Button>
-          </Link>
-        </NavigationMenuItem>
+        {!user && (
+          <NavigationMenuItem className="">
+            <Link href="/login" legacyBehavior passHref>
+              <Button variant={"link"}>Login</Button>
+            </Link>
+          </NavigationMenuItem>
+        )}
+
+        {user && (
+          <NavigationMenuItem className="">
+            <Link href="/dashboard" legacyBehavior passHref>
+              <Button variant={"link"}>Dashboard</Button>
+            </Link>
+          </NavigationMenuItem>
+        )}
       </NavigationMenuList>
     </NavigationMenu>
   );

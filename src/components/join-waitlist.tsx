@@ -19,6 +19,10 @@ import { toast } from "@/components/ui/use-toast";
 import Glow from "./glow-wrapper";
 import { Icons } from "./icons";
 import { SignUpAction } from "@/lib/server-actions/auth-actions";
+import { useRouter } from "next/navigation";
+import { useSupabaseUser } from "./user-provider";
+import { ArrowBigRight, ArrowRight, ArrowRightCircleIcon } from "lucide-react";
+import Link from "next/link";
 
 const FormSchema = z.object({
   email: z.string().email({
@@ -27,6 +31,8 @@ const FormSchema = z.object({
 });
 
 export function WaitlistForm() {
+  const { user } = useSupabaseUser(); 
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -48,7 +54,7 @@ export function WaitlistForm() {
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">You have already Signed Up!</code>
           </pre>
-        )
+        ),
       });
     }
 
@@ -65,6 +71,17 @@ export function WaitlistForm() {
 
     form.reset();
   }
+
+  if (user)
+    return (
+      <div className="flex gap-2">
+        <Link href={"/builder"}>
+          <Button variant="link">
+            Go to builder <ArrowRight />
+          </Button>
+        </Link>
+      </div>
+    );
 
   return (
     <Form {...form}>
