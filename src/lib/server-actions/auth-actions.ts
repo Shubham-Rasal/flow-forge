@@ -11,14 +11,16 @@ dotenv.config({
 const {
   NEXT_PUBLIC_SUPABASE_PROJECT_URL,
   NEXT_PUBLIC_SUPABASE_PROJECT_ANON_KEY,
+  NEXT_PUBLIC_VERCEL_URL,
+  NODE_ENV,
 } = process.env;
 const supabaseUrl = NEXT_PUBLIC_SUPABASE_PROJECT_URL;
 const supabaseKey = NEXT_PUBLIC_SUPABASE_PROJECT_ANON_KEY;
+let siteUrl: string;
+if (NODE_ENV != "production") siteUrl = "http://localhost:3000/builder";
+else siteUrl = NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000/builder";
 
-export async function LoginAction({
-  email,
-  password,
-}: z.infer<typeof loginSchema>) {
+export async function LoginAction({ email }: z.infer<typeof loginSchema>) {
   const authClient = createRouteHandlerClient(
     { cookies },
     {
@@ -26,9 +28,13 @@ export async function LoginAction({
       supabaseUrl,
     }
   );
-  const signInResponse = await authClient.auth.signInWithPassword({
+  const signInResponse = await authClient.auth.signInWithOtp({
     email,
-    password,
+    options: {
+      shouldCreateUser: false,
+      // emailRedirectTo: `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/callback`,
+      emailRedirectTo: `http://localhost:3000/api/auth/callback`,
+    },  
   });
 
   return signInResponse;
@@ -36,10 +42,7 @@ export async function LoginAction({
 
 //signup
 
-export async function SignUpAction({
-  email,
-  password,
-}: z.infer<typeof loginSchema>) {
+export async function SignUpAction({ email }: z.infer<typeof loginSchema>) {
   const authClient = createRouteHandlerClient(
     { cookies },
     {
@@ -51,14 +54,14 @@ export async function SignUpAction({
   //check if user exists
   const user = await authClient.from("users").select("*").eq("email", email);
   if (user.data?.length) {
-    return { error: "user already exists" };
+    return { error: "User already exists." };
   }
 
-  const signUpResponse = await authClient.auth.signUp({
+  const signUpResponse = await authClient.auth.signInWithOtp({
     email,
-    password,
     options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/callback`,
+      // emailRedirectTo: `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/callback`,
+      emailRedirectTo: `http://localhost:3000/api/auth/callback`,
     },
   });
 
@@ -75,6 +78,6 @@ export async function LogoutAction() {
     }
   );
   const response = await authClient.auth.signOut();
-  
+
   return response;
 }

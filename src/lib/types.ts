@@ -2,7 +2,6 @@ import * as z from "zod";
 
 export const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(3).max(8),
 });
 
 export const registerSchema = z
