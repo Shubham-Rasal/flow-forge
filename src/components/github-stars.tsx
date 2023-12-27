@@ -1,8 +1,8 @@
 import { Github } from "lucide-react";
 
-const url = process.env.NEXT_PUBLIC_GITHUB_URL;
 
-function formatNumber(number: number): string {
+const url = process.env.NEXT_PUBLIC_GITHUB_URL;
+function formatNumber(number: any): string {
   const absNumber = Math.abs(number);
   if (absNumber >= 1e6) {
     return (number / 1e6).toFixed(1) + "M";
