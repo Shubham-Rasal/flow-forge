@@ -52,7 +52,7 @@ export function WaitlistForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="blueq@planner.com" {...field} />
+                <Input className="shadow-lg" placeholder="blueq@planner.com" {...field} />
               </FormControl>
               <FormDescription>
                 Join the waitlist to get early access.

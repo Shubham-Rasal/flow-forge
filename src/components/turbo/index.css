@@ -5,8 +5,8 @@
   /* #ffb703 */
   --node-box-shadow: 10px 0 15px rgba(255, 183, 3, 0.3),
     -10px 0 15px rgba(33, 158, 188, 0.3);
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  /* background-color: var(--bg-color);
+  color: var(--text-color); */
   --sky-blue: #8ecae6ff;
   --blue-green: #219ebcff;
   --prussian-blue: #023047ff;
@@ -73,7 +73,7 @@
 }
 
 .react-flow__node-turbo .inner {
-  background: var(--bg-color);
+  /* background: var(--bg-color); */
   padding: 16px 20px;
   border-radius: var(--node-border-radius);
   display: flex;
@@ -119,7 +119,7 @@
 }
 
 .react-flow__node-turbo .cloud div {
-  background-color: var(--bg-color);
+  /* background-color: var(--bg-color); */
   flex-grow: 1;
   border-radius: 100%;
   display: flex;

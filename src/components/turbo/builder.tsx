@@ -161,7 +161,7 @@ const TurboBuilder = () => {
       edgeTypes={edgeTypes}
       defaultEdgeOptions={defaultEdgeOptions}
     >
-      <Controls showInteractive={false} />
+      <Controls showInteractive={false} className="bg-white text-black dark:bg-slate-900" />
       <svg>
         <defs>
           <linearGradient id="edge-gradient">
@@ -184,7 +184,7 @@ const TurboBuilder = () => {
         </defs>
       </svg>
 
-      <Background />
+      <Background className="dark:bg-slate-900 bg-slate-100" />
     </ReactFlow>
   );
 };

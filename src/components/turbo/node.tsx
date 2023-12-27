@@ -23,12 +23,12 @@ const TurboNode = ({ data }: NodeProps<TurboNodeData>) => {
   return (
     <>
       <div className="cloud gradient">
-        <div>
+        <div className="bg-white dark:bg-slate-900">
           <FiCloud />
         </div>
       </div>
       <div className="wrapper gradient">
-        <div className="inner">
+        <div className="inner bg-white dark:bg-slate-900">
           <DrawerDemo {...data} />
           <Handle type="target" position={Position.Left} />
           <Handle type="source" position={Position.Right} />
