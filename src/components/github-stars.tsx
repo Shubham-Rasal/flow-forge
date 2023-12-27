@@ -4,9 +4,8 @@ import { Github } from "lucide-react";
 
 const url = process.env.NEXT_PUBLIC_GITHUB_URL;
 
-function formatNumber(number: any) {
+function formatNumber(number: number) {
   const absNumber = Math.abs(number);
-
   if (absNumber >= 1e6) {
     return (number / 1e6).toFixed(1) + "M";
   } else if (absNumber >= 1e3) {
