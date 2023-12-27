@@ -1,5 +1,3 @@
-import React from "react";
-import { Button } from "./ui/button";
 import { Github } from "lucide-react";
 
 const url = process.env.NEXT_PUBLIC_GITHUB_URL;
