@@ -1,10 +1,6 @@
-import Glow from "@/components/glow-wrapper";
 import { WaitlistForm } from "@/components/join-waitlist";
-import NewRelease from "@/components/new-realease-button";
-import { Button } from "@/components/ui/button";
 
 const HomePage = () => {
-
 
   return (
     <section className="flex flex-col h-fit  bg-gradient-radial from-0% via-50% to-100% bg-no-repeat from-indigo-500/20 to-transparent">
