@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./global.css";
-import db from "@/lib/supabase/db";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { SupabaseUserProvider } from "@/components/user-provider";
+import Background from "@/components/backgroud";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +18,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // console.log(db);
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <Toaster />
+        <Background />
         <ThemeProvider
           defaultTheme="system"
           enableSystem

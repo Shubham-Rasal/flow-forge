@@ -1,78 +1,130 @@
-import React, { useCallback } from 'react';
-import ReactFlow, { Controls, useNodesState, useEdgesState, addEdge, Node, Edge, Connection } from 'reactflow';
-import { FiFile } from 'react-icons/fi';
+'use client'
+import React, { useCallback } from "react";
+import ReactFlow, {
+  Controls,
+  useNodesState,
+  useEdgesState,
+  addEdge,
+  Node,
+  Edge,
+  Connection,
+  Background,
+} from "reactflow";
+import { FiFile } from "react-icons/fi";
 
-import 'reactflow/dist/base.css';
-import './index.css';
-import TurboNode, { TurboNodeData } from './node';
-import TurboEdge from './edge';
-import FunctionIcon from './icon';
+import "reactflow/dist/base.css";
+import "./index.css";
+import TurboNode, { TurboNodeData } from "./node";
+import TurboEdge from "./edge";
+import FunctionIcon from "./icon";
 
 const initialNodes: Node<TurboNodeData>[] = [
   {
-    id: '1',
+    id: "1",
     position: { x: 0, y: 0 },
-    data: { icon: <FunctionIcon />, title: 'june', subline: 'api.ts' },
-    type: 'turbo',
+    data: {
+      attachable: true,
+      description: "what is the main goal?",
+      goal: "complete the project",
+      time: "12:00",
+      date: new Date(),
+      type: "daily",
+    },
+    type: "turbo",
   },
   {
-    id: '2',
+    id: "2",
     position: { x: 250, y: 0 },
-    data: { icon: <FunctionIcon />, title: 'july', subline: 'apiContents' },
-    type: 'turbo',
+    data: {
+      attachable: true,
+      description: "what is the main goal?",
+      goal: "complete the project this is a test for long text can it accomodate it",
+      time: "12:00",
+      date: new Date(),
+      type: "daily",
+    },
+    type: "turbo",
   },
   {
-    id: '3',
+    id: "3",
     position: { x: 0, y: 250 },
-    data: { icon: <FunctionIcon />, title: 'august', subline: 'sdk.ts' },
-    type: 'turbo',
+    data: {
+      attachable: true,
+      description: "what is the main goal?",
+      goal: "complete the project",
+      time: "12:00",
+      date: new Date(),
+      type: "weekly",
+    },
+    type: "turbo",
   },
   {
-    id: '4',
+    id: "4",
     position: { x: 250, y: 250 },
-    data: { icon: <FunctionIcon />, title: 'bundle', subline: 'sdkContents' },
-    type: 'turbo',
+    data: {
+      attachable: true,
+      description: "what is the main goal?",
+      goal: "complete the project",
+      time: "12:00",
+      date: new Date(),
+      type: "daily",
+    },
+    type: "turbo",
   },
   {
-    id: '5',
+    id: "5",
     position: { x: 500, y: 125 },
-    data: { icon: <FunctionIcon />, title: 'concat', subline: 'api, sdk' },
-    type: 'turbo',
+    data: {
+      attachable: true,
+      description: "what is the main goal?",
+      goal: "complete the project",
+      time: "12:00",
+      date: new Date(),
+      type: "quarterly",
+    },
+    type: "turbo",
   },
   {
-    id: '6',
+    id: "6",
     position: { x: 750, y: 125 },
-    data: { icon: <FiFile />, title: 'fullBundle' },
-    type: 'turbo',
+    data: {
+      attachable: true,
+      description: "what is the main goal?",
+      goal: "complete the project",
+      time: "12:00",
+      date: new Date(),
+      type: "yearly",
+    },
+    type: "turbo",
   },
 ];
 
 const initialEdges: Edge[] = [
   {
-    id: 'e1-2',
-    source: '1',
-    target: '2',
+    id: "e1-2",
+    source: "1",
+    target: "2",
     animated: true,
   },
   {
-    id: 'e3-4',
-    source: '3',
-    target: '4',
+    id: "e3-4",
+    source: "3",
+    target: "4",
   },
   {
-    id: 'e2-5',
-    source: '2',
-    target: '5',
+    id: "e2-5",
+    source: "2",
+    target: "5",
   },
   {
-    id: 'e4-5',
-    source: '4',
-    target: '5',
+    id: "e4-5",
+    source: "4",
+    target: "5",
   },
   {
-    id: 'e5-6',
-    source: '5',
-    target: '6',
+    id: "e5-6",
+    source: "5",
+    target: "6",
   },
 ];
 
@@ -85,15 +137,18 @@ const edgeTypes = {
 };
 
 const defaultEdgeOptions = {
-  type: 'turbo',
-  markerEnd: 'edge-circle',
+  type: "turbo",
+  markerEnd: "edge-circle",
 };
 
 const TurboBuilder = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const onConnect = useCallback((params: Edge | Connection) => setEdges((els) => addEdge(params, els)), []);
+  const onConnect = useCallback(
+    (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),
+    []
+  );
 
   return (
     <ReactFlow
@@ -107,7 +162,7 @@ const TurboBuilder = () => {
       edgeTypes={edgeTypes}
       defaultEdgeOptions={defaultEdgeOptions}
     >
-      <Controls showInteractive={false} />
+      <Controls showInteractive={false} className="bg-white text-black dark:bg-slate-900" />
       <svg>
         <defs>
           <linearGradient id="edge-gradient">
@@ -129,6 +184,8 @@ const TurboBuilder = () => {
           </marker>
         </defs>
       </svg>
+
+      <Background className="dark:bg-slate-900 bg-slate-100" />
     </ReactFlow>
   );
 };

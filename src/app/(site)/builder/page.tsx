@@ -1,10 +1,9 @@
-import { Builder } from '@/components/builder'
-import React from 'react'
+import TurboBuilder from '@/components/turbo/builder'
 
 const BuilderPage = () => {
   return (
-    <div className='h-screen w-screen bg-slate-900 justify-center items-center'>
-        <Builder />
+    <div className='h-screen w-full dark:bg-neutral-950  justify-center items-center'>
+        <TurboBuilder />
     </div>
   )
 }

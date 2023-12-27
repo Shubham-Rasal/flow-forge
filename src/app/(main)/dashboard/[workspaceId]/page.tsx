@@ -1,4 +1,5 @@
 import NovelEditor from "@/components/editor";
+import Logout from "@/components/logout";
 import TeamSwitcher from "@/components/workspace-switcher";
 import {
   createWorkspace,
@@ -32,6 +33,7 @@ const WorkspacePage = async ({
           workspaces={workspaces}
           createWorkspace={createWorkspace}
         />
+        <Logout />
       </div>
       <div className="workspace flex-1">
        <NovelEditor />

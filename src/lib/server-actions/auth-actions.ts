@@ -75,5 +75,6 @@ export async function LogoutAction() {
     }
   );
   const response = await authClient.auth.signOut();
+  
   return response;
 }

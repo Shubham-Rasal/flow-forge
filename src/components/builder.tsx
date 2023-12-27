@@ -55,8 +55,10 @@ const initEdges = [
 
 
 export const Builder = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initEdges);
+
+
+  const [nodes] = useNodesState(initialNodes);
+  const [edges, setEdges] = useEdgesState(initEdges);
 
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
