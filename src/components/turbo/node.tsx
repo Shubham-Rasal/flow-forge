@@ -19,7 +19,7 @@ export type TurboNodeData = {
   attachable: boolean;
 };
 
-const TurboNode = ({ data }: NodeProps<TurboNodeData>) => {
+const TurboNode = (props: NodeProps<TurboNodeData>) => {
   return (
     <>
       <div className="cloud gradient">
@@ -29,7 +29,7 @@ const TurboNode = ({ data }: NodeProps<TurboNodeData>) => {
       </div>
       <div className="wrapper gradient">
         <div className="inner bg-white dark:bg-slate-900">
-          <DrawerDemo {...data} />
+          <DrawerDemo {...props} />
           <Handle type="target" position={Position.Left} />
           <Handle type="source" position={Position.Right} />
         </div>

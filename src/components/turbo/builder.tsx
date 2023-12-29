@@ -13,7 +13,7 @@ import ReactFlow, {
 import { FiFile } from "react-icons/fi";
 import { shallow } from "zustand/shallow";
 
-import useStore, { RFState } from "./store";
+import { useFlowStore, RFState } from "./store";
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -42,12 +42,12 @@ const defaultEdgeOptions = {
 };
 
 const TurboBuilder = () => {
-  const { nodes, edges, onNodesChange, onEdgesChange } = useStore(
+  const { nodes, edges, onNodesChange, onEdgesChange } = useFlowStore(
     selector,
     shallow
   );
 
- return (
+  return (
     <ReactFlow
       nodes={nodes}
       edges={edges}

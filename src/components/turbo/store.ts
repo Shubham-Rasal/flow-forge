@@ -10,15 +10,18 @@ import {
 } from "reactflow";
 import { create } from "zustand";
 import { TurboNodeData } from "./node";
+import { GoalSchema } from "../create-goal";
+import * as z from "zod";
 
-export type RFState = {
+export interface RFState {
   nodes: Node<TurboNodeData>[];
   edges: Edge[];
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
-};
+  updateNode: (nodeId: string, data: z.infer<typeof GoalSchema>) => void;
+}
 
-const useStore = create<RFState>((set, get) => ({
+export const useFlowStore = create<RFState>((set, get) => ({
   nodes: [
     {
       id: "1",
@@ -66,6 +69,13 @@ const useStore = create<RFState>((set, get) => ({
       edges: applyEdgeChanges(changes, get().edges),
     });
   },
+  updateNode: (nodeId: string, data: z.infer<typeof GoalSchema>) => {
+    const nodes = get().nodes;
+    const node = nodes.find((node) => node.id === nodeId);
+    if (node) {
+      node.data = data;
+      set({ nodes: [...nodes] });
+    }
+  },
 }));
 
-export default useStore;

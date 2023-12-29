@@ -2,7 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -23,6 +22,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { DrawerClose, DrawerFooter } from "./ui/drawer";
 import { TurboNodeData } from "./turbo/node";
+import { useFlowStore, RFState } from "./turbo/store";
+import { NodeProps } from "reactflow";
 //make a ts enum for goal types
 const goalTypes = [
   "daily",
@@ -32,29 +33,32 @@ const goalTypes = [
   "yearly",
 ] as const;
 
-const GoalSchema = z.object({
+export const GoalSchema = z.object({
   type: z.enum(goalTypes),
-  date: z.date().optional(),
-  time: z.string().optional(),
-  description: z.string().optional(),
+  date: z.date(),
+  time: z.string(),
+  description: z.string(),
   goal: z.string().max(50),
   attachable: z.boolean(),
 });
 
-export default function CreateGoal(data: TurboNodeData) {
+export default function CreateGoal({ data, id }: NodeProps<TurboNodeData>) {
   const form = useForm<z.infer<typeof GoalSchema>>({
     resolver: zodResolver(GoalSchema),
     defaultValues: {
       type: data.type,
       attachable: data.attachable,
-      date: data.date,
-      time: data.time,
-      description: data.description,
+      date: data.date || new Date(),
+      time: data.time || "12:00",
+      description: data.description || "",
       goal: data.goal,
     },
   });
 
+  const updateNode = useFlowStore((state: RFState) => state.updateNode);
+
   function onSubmit(data: z.infer<typeof GoalSchema>) {
+    updateNode(id, data);
     console.log(JSON.stringify(data, null, 2));
 
     toast({

@@ -25,16 +25,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TurboNodeData } from "./turbo/node";
 import CreateGoal from "./create-goal";
+import { NodeProps } from "reactflow";
 
-export function DrawerDemo(data: TurboNodeData) {
+export function DrawerDemo(props: NodeProps<TurboNodeData>) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const { data } = props;
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-        <Button variant="outline">{data.goal}</Button>
+          <Button variant="outline">{data.goal}</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -43,7 +45,7 @@ export function DrawerDemo(data: TurboNodeData) {
               Make changes to your goal here. Click save when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
-          <CreateGoal {...data}/>
+          <CreateGoal {...props} />
         </DialogContent>
       </Dialog>
     );
@@ -58,14 +60,12 @@ export function DrawerDemo(data: TurboNodeData) {
         <DrawerHeader className="text-left">
           <DrawerTitle>Edit profile</DrawerTitle>
           <DrawerDescription>
-          Make changes to your goal here. Click save when you&apos;re done.
-
+            Make changes to your goal here. Click save when you&apos;re done.
           </DrawerDescription>
         </DrawerHeader>
         {/* <ProfileForm className="px-4" /> */}
-        <CreateGoal {...data}/>
+        <CreateGoal {...props} />
       </DrawerContent>
     </Drawer>
   );
 }
-
