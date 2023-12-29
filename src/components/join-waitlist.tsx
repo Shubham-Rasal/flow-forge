@@ -20,7 +20,7 @@ import Glow from "./glow-wrapper";
 import { Icons } from "./icons";
 import { SignUpAction } from "@/lib/server-actions/auth-actions";
 import { useRouter } from "next/navigation";
-import { useSupabaseUser } from "./user-provider";
+import { useSupabaseUser } from "./providers/user-provider";
 import { ArrowBigRight, ArrowRight, ArrowRightCircleIcon } from "lucide-react";
 import Link from "next/link";
 

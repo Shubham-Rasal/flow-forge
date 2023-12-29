@@ -19,6 +19,12 @@ const SupabaseUserContext = createContext<SupabaseUserContextType>({
 });
 
 export const useSupabaseUser = () => {
+  if (!SupabaseUserContext) {
+    throw new Error(
+      "useSupabaseUser must be used within a SupabaseUserProvider"
+    );
+  }
+
   return useContext(SupabaseUserContext);
 };
 
@@ -42,22 +48,31 @@ export const SupabaseUserProvider: React.FC<SupabaseUserProviderProps> = ({
   //subscrip
   useEffect(() => {
     const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) return;
+      try {
+        const {
+          data: { user }, error
+        } = await supabase.auth.getUser();
+        if (!user) return;
 
-      setUser(user);
-      console.log(user);
-      const { data, error } = await getUserSubscriptionStatus(user.id);
-      if (data) setSubscription(data);
-      if (error) {
+        setUser(user);
+        console.log(user);
+        // const { data, error } = await getUserSubscriptionStatus(user.id);
+        // if (data) setSubscription(data);
+        if (error) {
+          toast({
+            title: "Unexpected Error",
+            description: error.toString(),
+          });
+        }
+      } catch (error) {
         toast({
           title: "Unexpected Error",
-          description: "Oppse! An unexpected error happened. Try again later.",
+          description: "Error fetching user details.",
         });
+        console.log(error);
       }
     };
+
     getUser();
   }, [supabase, toast]);
   return (
