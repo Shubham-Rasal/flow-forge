@@ -1,4 +1,4 @@
-import { WorkspaceProvider } from "@/components/workspace-provider";
+import { WorkspaceProvider } from "@/components/providers/workspace-provider";
 
 export default function HomeLayout({
   children,

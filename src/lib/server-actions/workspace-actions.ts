@@ -23,6 +23,18 @@ export const getAllWorkspaces = async () => {
   }
 };
 
+//get user workspaces
+export const getUserWorkspaces = async (userId: string) => {
+  try {
+    const data = await db.query.workspaces.findMany({
+      where: ({ workspaceOwner }: any, { eq }: any) => eq(workspaceOwner, userId),
+    });
+    return { data: data as Workspace[], error: null };
+  } catch (error) {
+    return { data: [], error: error };
+  }
+};
+
 //get all collaborators
 export const getAllCollaborators = async () => {
   try {
@@ -48,7 +60,7 @@ export const getUserSubscriptionStatus = async (userId: string) => {
 };
 
 //get default workspace
-export const getDefaultWorkspace = async (userId : string) => {
+export const getDefaultWorkspace = async (userId: string) => {
   try {
     const data = await db.query.workspaces.findFirst({
       where: ({ user_id }: any, { eq }: any) => eq(user_id, userId),

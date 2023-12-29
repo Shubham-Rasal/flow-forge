@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { v4 } from "uuid";
-import { useSupabaseUser } from "./user-provider";
+import { useSupabaseUser } from "./providers/user-provider";
 
 type CreateWorkspaceProps = {
   createWorkspace: (workspace: Workspace) => Promise<any>;

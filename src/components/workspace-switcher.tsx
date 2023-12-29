@@ -28,19 +28,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+
 import { Workspace } from "@/lib/supabase/database.types";
 import CreateWorkspace from "./create-workspace";
-import { useWorkspace } from "./workspace-provider";
+import { useWorkspace } from "./providers/workspace-provider";
 import { useRouter } from "next/navigation";
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger

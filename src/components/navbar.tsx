@@ -14,7 +14,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
-import { useSupabaseUser } from "./user-provider";
+import { useSupabaseUser } from "./providers/user-provider";
 
 export function Navbar() {
   const { user } = useSupabaseUser();
