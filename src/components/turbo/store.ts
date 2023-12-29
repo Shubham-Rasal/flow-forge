@@ -8,7 +8,7 @@ import {
   applyNodeChanges,
   applyEdgeChanges,
 } from "reactflow";
-import { create } from "zustand";
+import createWithEqualityFn  from "zustand";
 import { TurboNodeData } from "./node";
 import { GoalSchema } from "../create-goal";
 import * as z from "zod";
@@ -21,7 +21,7 @@ export interface RFState {
   updateNode: (nodeId: string, data: z.infer<typeof GoalSchema>) => void;
 }
 
-export const useFlowStore = create<RFState>((set, get) => ({
+export const useFlowStore = createWithEqualityFn<RFState>((set, get) => ({
   nodes: [
     {
       id: "1",
