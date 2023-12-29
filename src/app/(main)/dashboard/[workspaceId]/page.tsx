@@ -16,48 +16,34 @@ const WorkspacePage = async ({
 }: {
   params: { workspaceId: string };
 }) => {
-  // const { data, error } = await getAllWorkspaces();
-  //get current user
   const { data, error } = await getCurrentUserAction();
-  console.log(data);
-  if (error)
-    return (
-      <div>Something went wrong while fetching your user. Please try again</div>
-    );
-
-  // console.log(currentUser);
-  //get user workspaces
-  const userId = data.user.id;
-
-  const { data: workspaces, error: workspaceError } = await getUserWorkspaces(
-    userId
-  );
-
-  if (workspaceError) {
-    return (
-      <div>
-        Something went wrong while fetching your workspaces. Please try again
-      </div>
-    );
+  if (error) {
+    console.log(error);
+  }
+  if (!data.user) {
+    return <div>Loading...</div>;
   }
 
-  console.log(workspaces);
 
-  // Check the type of workspaces and update it if necessary
-  // Example: const workspaces: InferSelectModel<...> = ...
-  const userWorkspaces = workspaces as Workspace[];
+  const { data: workspaces, error: workspaceError } = await getUserWorkspaces(
+    data.user.id
+  );
+  if (!workspaces) {
+    return <div>Loading workspace...</div>;
+  }
+
   return (
     <div className="hidden flex-col md:flex">
       <div className="border-b border-slate-500">
         <div className="flex h-16 items-center px-4">
           <TeamSwitcher
-            workspaces={userWorkspaces}
+            workspaces={workspaces}
             createWorkspace={createWorkspace}
           />
           {/* <MainNav className="mx-6" /> */}
           <div className="ml-auto flex items-center space-x-4">
             {/* <Search /> */}
-            <UserNav />
+            <UserNav  />
           </div>
         </div>
       </div>

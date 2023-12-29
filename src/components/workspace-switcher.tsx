@@ -54,8 +54,10 @@ export default function WorkspaceSwitcher({
     "private" | "shared"
   >("private"); //default to private
 
-  const router = useRouter()
+  const router = useRouter();
 
+  const { setWorkspace: setSelectedWorkspace, workspace: selectedWorkspace } =
+    useWorkspace();
   const [showNewWorkspaceDialog, setShowNewWorkspaceDialog] =
     React.useState(false);
 
@@ -70,23 +72,6 @@ export default function WorkspaceSwitcher({
     },
   ];
 
-  const collaborators = [
-    {
-      name: "John Doe",
-      email: "joh1n@doe.com",
-    },
-    {
-      name: "John Doe",
-      email: "joh12n@doe.com",
-    },
-    {
-      name: "John Doe",
-      email: "joh234n@doe.com",
-    },
-  ];
-
-  const { setWorkspace: setSelectedWorkspace, workspace: selectedWorkspace } =
-    useWorkspace();
   if (!selectedWorkspace)
     return (
       <div className="flex flex-col items-center">

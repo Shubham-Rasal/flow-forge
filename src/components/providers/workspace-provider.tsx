@@ -1,9 +1,15 @@
 "use client";
-import {  Workspace } from "@/lib/supabase/database.types";
+import { AuthUser } from "@supabase/supabase-js";
+import { Subscription, Workspace } from "@/lib/supabase/database.types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { useToast } from "@/components/ui/use-toast";
+import {
+  getDefaultWorkspace,
+  getUserSubscriptionStatus,
+} from "@/lib/server-actions/workspace-actions";
+import { useSupabaseUser } from "./user-provider";
 
 type WorkspaceCotextType = {
   workspace: Workspace | null;
