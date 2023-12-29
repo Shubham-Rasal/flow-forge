@@ -18,7 +18,11 @@ import {
   FormMessage,
 } from "./ui/form";
 import { toast } from "./ui/use-toast";
-import { LoginAction } from "@/lib/server-actions/auth-actions";
+import {
+  LoginAction,
+  signInWithGithubAction,
+} from "@/lib/server-actions/auth-actions";
+import { useRouter } from "next/navigation";
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
@@ -29,16 +33,46 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     },
   });
 
+  const router = useRouter();
+
   const { isLoading, isSubmitting } = form.formState;
 
   async function onSubmit(data: z.infer<typeof loginSchema>) {
-    
     const loginResponse = await LoginAction(data);
-    console.log(loginResponse.data)
+    console.log(loginResponse.data);
 
     toast({
       title: "Check for a magic link in your inbox!",
     });
+  }
+
+  //handle github login
+  async function onGithubLogin() {
+    console.log("github login");
+    toast({
+      title: "Github login is not yet implemented!",
+    });
+
+    const { data, error } = await signInWithGithubAction();
+    if (error) {
+      toast({
+        title: "Error logging in with Github!",
+        description: error.toString(),
+      });
+    }
+
+    //redirect to github for login
+    const { url } = data;
+
+    if(!url) {
+      toast({
+        title: "Error logging in with Github!",
+        description: "No url returned from server.",
+      });
+      return;
+    }
+
+    router.push(url);
   }
 
   return (
@@ -56,16 +90,16 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                       Email
                     </Label>
                     <FormControl>
-                    <Input
-                      id="email"
-                      placeholder="name@example.com"
-                      type="email"
-                      autoCapitalize="none"
-                      autoComplete="email"
-                      autoCorrect="off"
-                      disabled={isLoading}
-                      {...field}
-                    />
+                      <Input
+                        id="email"
+                        placeholder="name@example.com"
+                        type="email"
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        disabled={isLoading}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -92,7 +126,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
+      <Button
+        variant="outline"
+        onClick={onGithubLogin}
+        type="button"
+        disabled={isLoading}
+      >
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
