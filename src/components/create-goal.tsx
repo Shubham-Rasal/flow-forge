@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { DrawerClose, DrawerFooter } from "./ui/drawer";
 import { TurboNodeData } from "./turbo/node";
 import { useFlowStore, RFState } from "./turbo/store";
-import { NodeProps } from "reactflow";
+import { NodeProps, XYPosition } from "reactflow";
 import { date } from "drizzle-orm/mysql-core";
 //make a ts enum for goal types
 const goalTypes = [
@@ -38,8 +38,8 @@ export const GoalSchema = z.object({
   type: z.enum(goalTypes),
   date: z.date(),
   time: z.string(),
-  description: z.string(),
-  goal: z.string().max(50),
+  description: z.string().max(50).min(3),
+  goal: z.string().max(50).min(3),
   attachable: z.boolean(),
 });
 
@@ -56,17 +56,18 @@ export default function CreateGoal() {
     },
   });
 
-  const updateNode = useFlowStore((state: RFState) => state.updateNode);
+  const createNode = useFlowStore((state: RFState) => state.createNode);
 
   function onSubmit(data: z.infer<typeof GoalSchema>) {
-    // updateNode(id, data);
-    console.log(JSON.stringify(data, null, 2));
+    createNode(data);
 
     toast({
-      title: "You submitted the following values:",
+      title: "You created a node:",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-neutral-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          <code className="text-white">
+            {JSON.stringify(data, null, 2)}
+          </code>
         </pre>
       ),
     });

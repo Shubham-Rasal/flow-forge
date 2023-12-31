@@ -15,14 +15,13 @@ import { GoalSchema } from "../update-goal";
 import * as z from "zod";
 import { v4 } from "uuid";
 
-
 export interface RFState {
   nodes: Node<TurboNodeData>[];
   edges: Edge[];
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
   updateNode: (nodeId: string, data: z.infer<typeof GoalSchema>) => void;
-  addChildNode: (parentNode: Node, position: XYPosition) => void;
+  createNode: (data: z.infer<typeof GoalSchema>) => void;
 }
 
 export const useFlowStore = create<RFState>((set, get) => ({
@@ -81,30 +80,16 @@ export const useFlowStore = create<RFState>((set, get) => ({
       set({ nodes: [...nodes] });
     }
   },
-  addChildNode: (parentNode: Node, position: XYPosition) => {
+  createNode: (data: z.infer<typeof GoalSchema>) => {
     const newNode: Node<TurboNodeData> = {
       id: v4(),
-      position,
-      data: {
-        attachable: true,
-        description: "what is the main goal?",
-        goal: "complete the project",
-        time: "12:00",
-        date: new Date(),
-        type: "daily",
-      },
+      position: { x: 0, y: 0 },
+      data : data,  
       type: "turbo",
-    };
-
-    const newEdge = {
-      id: v4(),
-      source: parentNode.id,
-      target: newNode.id,
     };
 
     set({
       nodes: [...get().nodes, newNode],
-      edges: [...get().edges, newEdge],
     });
   },
 }));
