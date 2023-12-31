@@ -24,7 +24,6 @@ import { DrawerClose, DrawerFooter } from "./ui/drawer";
 import { TurboNodeData } from "./turbo/node";
 import { useFlowStore, RFState } from "./turbo/store";
 import { NodeProps } from "reactflow";
-import { date } from "drizzle-orm/mysql-core";
 //make a ts enum for goal types
 const goalTypes = [
   "daily",
@@ -43,23 +42,23 @@ export const GoalSchema = z.object({
   attachable: z.boolean(),
 });
 
-export default function CreateGoal() {
+export default function UpdateGoal({ data, id }: NodeProps<TurboNodeData>) {
   const form = useForm<z.infer<typeof GoalSchema>>({
     resolver: zodResolver(GoalSchema),
     defaultValues: {
-      type: "daily",
-      attachable: false,
-      date: new Date(),
-      time: "12:00",
-      description: "",
-      goal: "",
+      type: data.type,
+      attachable: data.attachable,
+      date: data.date || new Date(),
+      time: data.time || "12:00",
+      description: data.description || "",
+      goal: data.goal,
     },
   });
 
   const updateNode = useFlowStore((state: RFState) => state.updateNode);
 
   function onSubmit(data: z.infer<typeof GoalSchema>) {
-    // updateNode(id, data);
+    updateNode(id, data);
     console.log(JSON.stringify(data, null, 2));
 
     toast({

@@ -1,7 +1,7 @@
 import React, { memo, ReactNode } from "react";
 import { Handle, NodeProps, Position } from "reactflow";
 import { FiCloud } from "react-icons/fi";
-import { DrawerDemo } from "../drawer-demo";
+import { UpdateDrawer } from "../drawer-demo";
 
 // type: z.enum(goalTypes),
 //   date: z.date().optional(),
@@ -29,7 +29,7 @@ const TurboNode = (props: NodeProps<TurboNodeData>) => {
       </div>
       <div className="wrapper gradient">
         <div className="inner bg-white dark:bg-slate-900">
-          <DrawerDemo {...props} />
+          <UpdateDrawer {...props} />
           <Handle type="target" position={Position.Left} />
           <Handle type="source" position={Position.Right} />
         </div>

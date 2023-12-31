@@ -1,6 +1,4 @@
 import * as React from "react";
-
-import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,32 +19,31 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { TurboNodeData } from "./turbo/node";
-import CreateGoal from "./update-goal";
-import { NodeProps } from "reactflow";
-import UpdateGoal from "./update-goal";
 
-export function UpdateDrawer(props: NodeProps<TurboNodeData>) {
+import CreateGoal from "./create-goal";
+import { ControlButton, NodeProps } from "reactflow";
+import { PlusCircleIcon } from "lucide-react";
+
+export function CreateDrawer() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const { data } = props;
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">{data.goal}</Button>
+          <ControlButton>
+            <PlusCircleIcon />
+          </ControlButton>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit goal</DialogTitle>
+            <DialogTitle>Create goal</DialogTitle>
             <DialogDescription>
               Make changes to your goal here. Click save when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
-          <UpdateGoal {...props} />
+          <CreateGoal />
         </DialogContent>
       </Dialog>
     );
@@ -55,17 +52,19 @@ export function UpdateDrawer(props: NodeProps<TurboNodeData>) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">{data.goal}</Button>
+        <ControlButton>
+          <PlusCircleIcon />
+        </ControlButton>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Edit goal</DrawerTitle>
+          <DrawerTitle>Create goal</DrawerTitle>
           <DrawerDescription>
             Make changes to your goal here. Click save when you&apos;re done.
           </DrawerDescription>
         </DrawerHeader>
         {/* <ProfileForm className="px-4" /> */}
-        <UpdateGoal {...props} />
+        <CreateGoal />
       </DrawerContent>
     </Drawer>
   );

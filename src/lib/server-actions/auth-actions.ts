@@ -25,8 +25,7 @@ export async function LoginAction({ email }: z.infer<typeof loginSchema>) {
     email,
     options: {
       shouldCreateUser: false,
-      // emailRedirectTo: `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/callback`,
-      emailRedirectTo: `http://localhost:3000/api/auth/callback`,
+      emailRedirectTo: `${siteUrl}/api/auth/callback`,
     },
   });
 
@@ -53,8 +52,7 @@ export async function SignUpAction({ email }: z.infer<typeof loginSchema>) {
   const signUpResponse = await authClient.auth.signInWithOtp({
     email,
     options: {
-      // emailRedirectTo: `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/callback`,
-      emailRedirectTo: `http://localhost:3000/api/auth/callback`,
+      emailRedirectTo: `${siteUrl}/api/auth/callback`,
     },
   });
 
