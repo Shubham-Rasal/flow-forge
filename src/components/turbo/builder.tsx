@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback } from "react";
-import ReactFlow, { Controls, Background, ControlButton } from "reactflow";
+import ReactFlow, { Controls, Background, ControlButton, BackgroundVariant } from "reactflow";
 import { shallow } from "zustand/shallow";
 import {
   AlertDialog,
@@ -98,7 +98,7 @@ const TurboBuilder = () => {
           </defs>
         </svg>
 
-        <Background className="dark:bg-slate-900 bg-slate-100" />
+        <Background className="bg-transparent" variant={BackgroundVariant.Dots} />
       </ReactFlow>
     </div>
   );

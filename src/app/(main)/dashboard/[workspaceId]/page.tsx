@@ -1,5 +1,6 @@
 import NovelEditor from "@/components/editor";
 import Logout from "@/components/logout";
+import TurboBuilder from "@/components/turbo/builder";
 import { UserNav } from "@/components/user-nav";
 import TeamSwitcher from "@/components/workspace-switcher";
 import { getCurrentUserAction } from "@/lib/server-actions/auth-actions";
@@ -9,6 +10,7 @@ import {
   getUserWorkspaces,
 } from "@/lib/server-actions/workspace-actions";
 import { Workspace } from "@/lib/supabase/database.types";
+import { Search } from "lucide-react";
 import React from "react";
 
 const WorkspacePage = async ({
@@ -23,7 +25,6 @@ const WorkspacePage = async ({
   if (!data.user) {
     return <div>Loading...</div>;
   }
-
 
   const { data: workspaces, error: workspaceError } = await getUserWorkspaces(
     data.user.id
@@ -40,13 +41,12 @@ const WorkspacePage = async ({
             workspaces={workspaces}
             createWorkspace={createWorkspace}
           />
-          {/* <MainNav className="mx-6" /> */}
           <div className="ml-auto flex items-center space-x-4">
-            {/* <Search /> */}
-            <UserNav  />
+            <UserNav />
           </div>
         </div>
       </div>
+        <TurboBuilder />
     </div>
   );
 };
