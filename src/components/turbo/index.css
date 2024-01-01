@@ -2,7 +2,6 @@
   --bg-color: rgb(17, 17, 17);
   --text-color: rgb(243, 244, 246);
   --node-border-radius: 10px;
-  /* #ffb703 */
   --node-box-shadow: 10px 0 15px rgba(255, 183, 3, 0.3),
     -10px 0 15px rgba(33, 158, 188, 0.3);
   /* background-color: var(--bg-color);
@@ -129,16 +128,17 @@
 }
 
 .react-flow__handle {
-  opacity: 0;
+  opacity: 1;
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 2px solid #95679e;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 
-.react-flow__handle.source {
-  right: -10px;
-}
 
-.react-flow__handle.target {
-  left: -10px;
-}
 
 .react-flow__node:focus {
   outline: none;

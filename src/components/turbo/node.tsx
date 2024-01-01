@@ -3,13 +3,6 @@ import { Handle, NodeProps, Position } from "reactflow";
 import { UpdateDrawer } from "../drawer-demo";
 import { LockClosedIcon, LockOpen2Icon } from "@radix-ui/react-icons";
 
-// type: z.enum(goalTypes),
-//   date: z.date().optional(),
-//   time: z.string().optional(),
-//   description: z.string().optional(),
-//   goal: z.string(),
-//   attachable: z.boolean(),
-
 export type TurboNodeData = {
   type: "daily" | "weekly" | "monthly" | "quarterly" | "yearly";
   date: Date;
@@ -20,6 +13,7 @@ export type TurboNodeData = {
 };
 
 const TurboNode = (props: NodeProps<TurboNodeData>) => {
+  const { data } = props;
   return (
     <>
       <div className="cloud gradient">
@@ -30,8 +24,8 @@ const TurboNode = (props: NodeProps<TurboNodeData>) => {
       <div className="wrapper gradient">
         <div className="inner bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
           <UpdateDrawer {...props} />
-          <Handle type="target" position={Position.Left} />
-          <Handle type="source" position={Position.Right} />
+          <Handle className="bg-red-200  text-white w-5 h-5" type="target" position={Position.Top} isConnectable={data.attachable} />
+          <Handle className="bg-teal-200 w-5 h-5" type="source" position={Position.Bottom} isConnectable={data.attachable} />
         </div>
       </div>
     </>

@@ -1,6 +1,14 @@
 "use client";
-import React, { useCallback } from "react";
-import ReactFlow, { Controls, Background, ControlButton, BackgroundVariant } from "reactflow";
+import React, { useCallback, useRef } from "react";
+import ReactFlow, {
+  Controls,
+  Background,
+  ControlButton,
+  BackgroundVariant,
+  OnConnectStart,
+  OnConnectEnd,
+  addEdge,
+} from "reactflow";
 import { shallow } from "zustand/shallow";
 import {
   AlertDialog,
@@ -20,6 +28,7 @@ const selector = (state: RFState) => ({
   edges: state.edges,
   onNodesChange: state.onNodesChange,
   onEdgesChange: state.onEdgesChange,
+  onConnect: state.onConnect,
 });
 
 import "reactflow/dist/base.css";
@@ -47,10 +56,8 @@ const defaultEdgeOptions = {
 };
 
 const TurboBuilder = () => {
-  const { nodes, edges, onNodesChange, onEdgesChange } = useFlowStore(
-    selector,
-    shallow
-  );
+  const { nodes, edges, onNodesChange, onEdgesChange, onConnect } =
+    useFlowStore(selector, shallow);
 
   return (
     <div className="relative h-screen w-full dark:bg-neutral-950  justify-center items-center">
@@ -59,6 +66,7 @@ const TurboBuilder = () => {
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
         fitView
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
@@ -98,7 +106,10 @@ const TurboBuilder = () => {
           </defs>
         </svg>
 
-        <Background className="bg-transparent" variant={BackgroundVariant.Dots} />
+        <Background
+          className="bg-transparent"
+          variant={BackgroundVariant.Dots}
+        />
       </ReactFlow>
     </div>
   );

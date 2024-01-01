@@ -51,8 +51,8 @@ export default function CreateGoal() {
       attachable: false,
       date: new Date(),
       time: "12:00",
-      description: "",
-      goal: "",
+      description: "water is tasty",
+      goal: "new insight",
     },
   });
 

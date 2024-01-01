@@ -8,6 +8,9 @@ import {
   applyNodeChanges,
   applyEdgeChanges,
   XYPosition,
+  addEdge,
+  Connection,
+  OnConnect,
 } from "reactflow";
 import { create } from "zustand";
 import { TurboNodeData } from "./node";
@@ -20,6 +23,7 @@ export interface RFState {
   edges: Edge[];
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
+  onConnect: OnConnect;
   updateNode: (nodeId: string, data: z.infer<typeof GoalSchema>) => void;
   createNode: (data: z.infer<typeof GoalSchema>) => void;
 }
@@ -55,12 +59,12 @@ export const useFlowStore = create<RFState>((set, get) => ({
   ],
 
   edges: [
-    {
-      id: "e1-2",
-      source: "1",
-      target: "2",
-      animated: true,
-    },
+    // {
+    //   id: "e1-2",
+    //   source: "1",
+    //   target: "2",
+    //   animated: true,
+    // },
   ],
   onNodesChange: (changes: NodeChange[]) => {
     set({
@@ -72,6 +76,25 @@ export const useFlowStore = create<RFState>((set, get) => ({
       edges: applyEdgeChanges(changes, get().edges),
     });
   },
+
+  onConnect: (connection: Connection) => {
+
+    console.log(connection);
+
+    const edge: Edge = {
+      id: `${connection.source}-${connection.target}`,
+      source: connection.source || "", // Ensure source is always a string
+      target: connection.target || "", // Ensure target is always a string
+      type: "turbo",
+      animated: true,
+    };
+
+
+    set({
+      edges: addEdge(edge, get().edges),
+    });
+  },
+
   updateNode: (nodeId: string, data: z.infer<typeof GoalSchema>) => {
     const nodes = get().nodes;
     const node = nodes.find((node) => node.id === nodeId);
@@ -84,7 +107,7 @@ export const useFlowStore = create<RFState>((set, get) => ({
     const newNode: Node<TurboNodeData> = {
       id: v4(),
       position: { x: 0, y: 0 },
-      data : data,  
+      data: data,
       type: "turbo",
     };
 
