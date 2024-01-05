@@ -81,8 +81,8 @@ const TurboBuilder = () => {
         <svg>
           <defs>
             <linearGradient id="edge-gradient">
-              <stop offset="0%" stopColor="#ae53ba" />
-              <stop offset="100%" stopColor="#2a8af6" />
+              <stop offset="0%" stopColor="#fff" />
+              <stop offset="100%" stopColor="#000" />
             </linearGradient>
 
             <marker
@@ -96,10 +96,10 @@ const TurboBuilder = () => {
               orient="auto"
             >
               <circle
-                stroke="#2a8af6"
+                stroke="#fff"
                 strokeOpacity="0.75"
-                r="2"
-                cx="0"
+                r="1"
+                cx="3px"
                 cy="0"
               />
             </marker>

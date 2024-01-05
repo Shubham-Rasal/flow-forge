@@ -129,7 +129,7 @@
 
 .react-flow__handle {
   opacity: 1;
-  background-color: red;
+  background-color: rgb(255, 255, 255);
   width: 20px;
   height: 20px;
   border-radius: 100%;
@@ -138,6 +138,13 @@
   cursor: pointer;
 }
 
+.react-flow__handle.react-flow__handle-top {
+  top: -20px;
+}
+
+.react-flow__handle.react-flow__handle-bottom {
+  bottom: -20px;
+}
 
 
 .react-flow__node:focus {
@@ -145,7 +152,7 @@
 }
 
 .react-flow__edge .react-flow__edge-path {
-  stroke: var(--selective-yellow);
+  stroke: var(--blue-green);
   stroke-width: 4;
   stroke-opacity: 0.95;
 }
