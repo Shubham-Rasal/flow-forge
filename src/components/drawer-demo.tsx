@@ -37,7 +37,7 @@ export function UpdateDrawer(props: NodeProps<TurboNodeData>) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">{data.goal}</Button>
+          <Button variant="ghost">{data.goal}</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>

@@ -25,12 +25,8 @@
 }
 
 .react-flow__node-turbo .wrapper {
-  overflow: hidden;
-  display: flex;
   padding: 2px;
-  position: relative;
   border-radius: var(--node-border-radius);
-  flex-grow: 1;
 }
 
 .gradient:before {
@@ -79,7 +75,7 @@
   flex-direction: column;
   justify-content: center;
   flex-grow: 1;
-  position: relative;
+  position: absolute;
 }
 
 .react-flow__node-turbo .icon {
