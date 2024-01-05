@@ -23,7 +23,7 @@ const TurboNode = (props: NodeProps<TurboNodeData>) => {
       </div>
       <div className="">
         <div className="wrapper gradient overflow-hidden flex flex-grow relative">
-          <div className="progress relative bg-red-700 z-20 flex flex-grow"></div>
+          <div className="progress absolute bg-red-700 z-20 flex flex-grow"></div>
           <div className="inner bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
             <UpdateDrawer {...props} />
           </div>

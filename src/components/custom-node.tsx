@@ -1,7 +1,5 @@
 import React, { memo } from "react";
 import { Handle, Position } from "reactflow";
-import { DrawerDemo } from "./drawer-demo";
-
 type CustomNodeProps = {
   data: {
     name: string;
