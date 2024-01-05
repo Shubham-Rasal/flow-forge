@@ -55,7 +55,7 @@ export function UpdateDrawer(props: NodeProps<TurboNodeData>) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">{data.goal}</Button>
+        <Button variant="ghost">{data.goal}</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
