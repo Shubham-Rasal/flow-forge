@@ -1,4 +1,3 @@
-import NovelEditor from "@/components/editor";
 import Logout from "@/components/logout";
 import TurboBuilder from "@/components/turbo/builder";
 import { UserNav } from "@/components/user-nav";
