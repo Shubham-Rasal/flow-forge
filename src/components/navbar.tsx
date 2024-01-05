@@ -27,11 +27,11 @@ export function Navbar() {
             <Button variant={"link"}>Home</Button>
           </Link>
         </NavigationMenuItem>
-        <NavigationMenuItem className="">
+        {/* <NavigationMenuItem className="">
           <Link href="/builder" legacyBehavior passHref>
             <Button variant={"link"}>Plan Builder</Button>
           </Link>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
         {!user && (
           <NavigationMenuItem className="">
             <Link href="/login" legacyBehavior passHref>
