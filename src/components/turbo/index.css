@@ -2,15 +2,9 @@
   --bg-color: rgb(17, 17, 17);
   --text-color: rgb(243, 244, 246);
   --node-border-radius: 10px;
-  --node-box-shadow: 10px 0 15px rgba(255, 183, 3, 0.3),
-    -10px 0 15px rgba(33, 158, 188, 0.3);
-  /* background-color: var(--bg-color);
-  color: var(--text-color); */
-  --sky-blue: #8ecae6ff;
-  --blue-green: #219ebcff;
-  --prussian-blue: #023047ff;
-  --selective-yellow: #ffb703ff;
-  --ut-orange: #fb8500ff;
+  --node-box-shadow: 10px 0 15px rgba(42, 138, 246, 0.3), -10px 0 15px rgba(233, 42, 103, 0.3);
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .react-flow__node-turbo {
@@ -18,28 +12,32 @@
   display: flex;
   height: 70px;
   min-width: 150px;
-  font-family: "Fira Mono", Monospace;
+  font-family: 'Fira Mono', Monospace;
   font-weight: 500;
   letter-spacing: -0.2px;
   box-shadow: var(--node-box-shadow);
 }
 
 .react-flow__node-turbo .wrapper {
+  overflow: hidden;
+  display: flex;
   padding: 2px;
+  position: relative;
   border-radius: var(--node-border-radius);
+  flex-grow: 1;
 }
 
 .gradient:before {
-  content: "";
+  content: '';
   position: absolute;
   padding-bottom: calc(100% * 1.41421356237);
   width: calc(100% * 1.41421356237);
   background: conic-gradient(
     from -160deg at 50% 50%,
-    var(--selective-yellow) 0deg,
-    var(--sky-blue) 120deg,
-    var(--ut-orange) 240deg,
-    var(--selective-yellow) 360deg
+    #e92a67 0deg,
+    #a853ba 120deg,
+    #2a8af6 240deg,x
+    #e92a67 360deg
   );
   left: 50%;
   top: 50%;
@@ -48,12 +46,12 @@
 }
 
 .react-flow__node-turbo.selected .wrapper.gradient:before {
-  content: "";
+  content: '';
   background: conic-gradient(
     from -160deg at 50% 50%,
-    var(--selective-yellow) 0deg,
-    var(--ut-orange) 120deg,
-    var(--blue-green) 240deg,
+    #e92a67 0deg,
+    #a853ba 120deg,
+    #2a8af6 240deg,
     rgba(42, 138, 246, 0) 360deg
   );
   animation: spinner 4s linear infinite;
@@ -68,14 +66,15 @@
 }
 
 .react-flow__node-turbo .inner {
-  /* background: var(--bg-color); */
-  padding: 16px 20px;
+  background: var(--bg-color);
+  padding: 2px;
   border-radius: var(--node-border-radius);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
   flex-grow: 1;
-  position: absolute;
+  position: relative;
 }
 
 .react-flow__node-turbo .icon {
@@ -114,7 +113,7 @@
 }
 
 .react-flow__node-turbo .cloud div {
-  /* background-color: var(--bg-color); */
+  background-color: var(--bg-color);
   flex-grow: 1;
   border-radius: 100%;
   display: flex;
@@ -125,32 +124,33 @@
 
 .react-flow__handle {
   opacity: 1;
-  background-color: rgb(255, 255, 255);
   width: 20px;
   height: 20px;
+}
+
+.react-flow__handle.source {
+  z-index: 10;
+  right: 10px;
   border-radius: 100%;
-  border: 2px solid #95679e;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
+  background-color: #e92a67;
+
 }
 
-.react-flow__handle.react-flow__handle-top {
-  top: -20px;
+.react-flow__handle.target {
+  z-index: 10;
+  left: 50%;
+  border-radius: 100%;
+  background-color: #2a8af6;
 }
-
-.react-flow__handle.react-flow__handle-bottom {
-  bottom: -20px;
-}
-
 
 .react-flow__node:focus {
   outline: none;
 }
 
 .react-flow__edge .react-flow__edge-path {
-  stroke: var(--blue-green);
-  stroke-width: 4;
-  stroke-opacity: 0.95;
+  stroke: url(#edge-gradient);
+  stroke-width: 5;
+  stroke-opacity: 0.75;
 }
 
 .react-flow__controls button {

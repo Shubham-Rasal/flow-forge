@@ -25,9 +25,12 @@ export default function CustomEdge({
     targetPosition,
   });
 
+  console.log("edgePath", edgePath);
+
   return (
     <>
       <path
+        onClick={() => console.log("edge double clicked")}
         id={id}
         style={style}
         className="react-flow__edge-path"

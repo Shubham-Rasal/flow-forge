@@ -17,8 +17,8 @@ const {
 const supabaseUrl = NEXT_PUBLIC_SUPABASE_PROJECT_URL;
 const supabaseKey = NEXT_PUBLIC_SUPABASE_PROJECT_ANON_KEY;
 let siteUrl: string;
-if (NODE_ENV != "production") siteUrl = "http://localhost:3000/builder";
-else siteUrl = NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000/builder";
+if (NODE_ENV != "production") siteUrl = "http://localhost:3000";
+else siteUrl = NEXT_PUBLIC_VERCEL_URL as string;
 
 export async function LoginAction({ email }: z.infer<typeof loginSchema>) {
   const signInResponse = await authClient.auth.signInWithOtp({

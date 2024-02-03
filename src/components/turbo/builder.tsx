@@ -35,11 +35,6 @@ import "reactflow/dist/base.css";
 import "./index.css";
 import TurboNode, { TurboNodeData } from "./node";
 import TurboEdge from "./edge";
-import FunctionIcon from "./icon";
-import { toast } from "../ui/use-toast";
-import { Button } from "../ui/button";
-import { MagicWandIcon } from "@radix-ui/react-icons";
-import { PlusCircleIcon } from "lucide-react";
 import { CreateDrawer } from "../create-drawer";
 
 const nodeTypes = {
@@ -80,10 +75,10 @@ const TurboBuilder = () => {
         </Controls>
         <svg>
           <defs>
-            <linearGradient id="edge-gradient">
-              <stop offset="0%" stopColor="#fff" />
-              <stop offset="100%" stopColor="#000" />
-            </linearGradient>
+          <linearGradient id="edge-gradient">
+            <stop offset="0%" stopColor="#ae53ba" />
+            <stop offset="100%" stopColor="#2a8af6" />
+          </linearGradient>
 
             <marker
               id="edge-circle"

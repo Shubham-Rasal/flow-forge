@@ -59,12 +59,12 @@ export const useFlowStore = create<RFState>((set, get) => ({
   ],
 
   edges: [
-    // {
-    //   id: "e1-2",
-    //   source: "1",
-    //   target: "2",
-    //   animated: true,
-    // },
+    {
+      id: "e1-2",
+      source: "1",
+      target: "2",
+      animated: true,
+    },
   ],
   onNodesChange: (changes: NodeChange[]) => {
     set({
@@ -115,4 +115,11 @@ export const useFlowStore = create<RFState>((set, get) => ({
       nodes: [...get().nodes, newNode],
     });
   },
+
+  deleteEdge: (edgeId: string) => {
+    set({
+      edges: get().edges.filter((edge) => edge.id !== edgeId),
+    });
+  }
+
 }));
