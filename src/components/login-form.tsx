@@ -48,11 +48,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   //handle github login
   async function onGithubLogin() {
-    console.log("github login");
-    toast({
-      title: "Github login is not yet implemented!",
-    });
-
+   
     const { data, error } = await signInWithGithubAction();
     if (error) {
       toast({

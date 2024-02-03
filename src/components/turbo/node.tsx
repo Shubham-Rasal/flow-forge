@@ -2,6 +2,7 @@ import React, { memo, ReactNode } from "react";
 import { Handle, NodeProps, Position } from "reactflow";
 import { UpdateDrawer } from "../drawer-demo";
 import { LockClosedIcon, LockOpen2Icon } from "@radix-ui/react-icons";
+import { CheckCircle } from "lucide-react";
 
 export type TurboNodeData = {
   type: "daily" | "weekly" | "monthly" | "quarterly" | "yearly";
@@ -18,27 +19,26 @@ const TurboNode = (props: NodeProps<TurboNodeData>) => {
     <>
       <div className="cloud gradient">
         <div className="bg-white dark:bg-slate-900">
-          {props.data.attachable ? <LockOpen2Icon /> : <LockClosedIcon />}
+          {props.data.attachable ? <CheckCircle /> : <LockClosedIcon />}
         </div>
       </div>
-      <div className="wrapper gradient overflow-hidden flex flex-grow relative">
-        <div className="progress inner relative bg-red-700 flex flex-grow"></div>
-        <div className="inner bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
-          <UpdateDrawer {...props} />
+      <div className="wrapper gradient">
+        <div className="inner">
+            <UpdateDrawer {...props} />
         </div>
+        <Handle
+          className="w-5 h-5"
+          type="target"
+          position={Position.Top}
+          isConnectable={data.attachable}
+        />
+        <Handle
+          className="bg-teal-200"
+          type="source"
+          position={Position.Bottom}
+          isConnectable={data.attachable}
+        />
       </div>
-      <Handle
-        className="bg-red-200  text-white"
-        type="target"
-        position={Position.Top}
-        isConnectable={data.attachable}
-      />
-      <Handle
-        className="bg-teal-200 w-5 h-5"
-        type="source"
-        position={Position.Bottom}
-        isConnectable={data.attachable}
-      />
     </>
   );
 };
