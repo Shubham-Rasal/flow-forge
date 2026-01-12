@@ -37,8 +37,8 @@ const Workflowform = ({ subTitle, title }: Props) => {
     // mode: 'onChange',
     resolver: zodResolver(WorkflowFormSchema),
     defaultValues: {
-      name: 'Default Workflow',
-      description: 'This is a default workflow',
+      name: 'My Automation Flow',
+      description: 'Automate your tasks seamlessly',
     },
   })
 

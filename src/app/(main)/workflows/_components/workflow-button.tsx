@@ -17,8 +17,8 @@ const WorkflowButton = (props: Props) => {
     console.log("clicked")
     setOpen(
       <CustomModal
-        title="Create a Workflow Automation"
-        subheading="Workflows are a powerfull that help you automate tasks."
+        title="Create New Automation"
+        subheading="Build powerful workflows to automate your tasks."
       >
         <Workflowform />
       </CustomModal>

@@ -62,7 +62,7 @@ export const Builder = () => {
 
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
-    []
+    [setEdges]
   );
 
   return (
