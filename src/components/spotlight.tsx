@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import MousePosition from '@/lib/utils/mouse-positions'
 
 type SpotlightProps = {
@@ -23,6 +23,13 @@ export default function Spotlight({
     containerRef.current && setBoxes(Array.from(containerRef.current.children).map((el) => el as HTMLElement))
   }, [])
   
+  const initContainer = useCallback(() => {
+    if(containerRef.current) {
+      containerSize.current.w = containerRef.current.offsetWidth
+      containerSize.current.h = containerRef.current.offsetHeight
+    }
+  }, [])
+
   useEffect(() => {    
     initContainer()
     window.addEventListener('resize', initContainer)
@@ -30,20 +37,9 @@ export default function Spotlight({
     return () => {
       window.removeEventListener('resize', initContainer)
     }
-  }, [setBoxes])  
+  }, [initContainer])  
 
-  useEffect(() => {
-    onMouseMove()
-  }, [mousePosition])
-
-  const initContainer = () => {
-    if(containerRef.current) {
-      containerSize.current.w = containerRef.current.offsetWidth
-      containerSize.current.h = containerRef.current.offsetHeight
-    }
-  }  
-  
-  const onMouseMove = () => {    
+  const onMouseMove = useCallback(() => {    
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect()
       const { w, h } = containerSize.current
@@ -61,7 +57,11 @@ export default function Spotlight({
         })
       }
     }
-  }  
+  }, [mousePosition, boxes])
+
+  useEffect(() => {
+    onMouseMove()
+  }, [onMouseMove])  
 
   return (
     <div className={className} ref={containerRef}>{children}</div>
