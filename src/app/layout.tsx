@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./global.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
@@ -9,8 +8,6 @@ import { BillingProvider } from "@/providers/billing-provider";
 import ModalProvider from "@/providers/modal-provider";
 import { ViewTransitions } from "next-view-transitions";
 import Footer from "@/components/footer";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Flow Forge",
@@ -26,7 +23,7 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en">
-        <body className={inter.className}>
+        <body className="font-sans">
           <Toaster />
           <Background />
           <ThemeProvider
